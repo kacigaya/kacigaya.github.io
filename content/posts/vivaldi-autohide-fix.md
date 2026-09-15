@@ -18,6 +18,16 @@ Explicitly kept-open sidebars stay open. Top and bottom visibility stays unchang
 
 The script edits Vivaldi's bundled JavaScript directly. It requires exactly one match for the original handler and refuses missing, duplicate, or already patched targets. There are no dependencies to install; the script runs with Bun.
 
+## Try Vivaldi's built-in timing controls first
+
+Recent Vivaldi builds expose timing settings for auto-hide. They shorten normal sidebar hiding without changing the application bundle:
+
+1. Open **Settings** and search for `biscuit`.
+2. Under **Auto-Hide**, set **Close delay** to **100 ms**. The default is **800 ms**.
+3. Set **Closing animation speed** to **100 ms**. The default is **300 ms**.
+
+These values cut the normal hiding time from roughly 1.1 seconds to 0.2 seconds. If that fixes the delay you are seeing, no extra patch is needed. The settings are unchanged until you edit them.
+
 ## Apply the patch
 
 Clone the repository and check whether the installed bundle matches:
