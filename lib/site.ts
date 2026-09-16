@@ -1,5 +1,5 @@
 // Both come from next.config.ts, derived from SITE_URL at build time.
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://gayakaci.com";
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kacigaya.github.io";
 
 // Path prefix under which the site is served; empty at a domain root. Link,
 // fonts, and chunks get it from next.config; plain <a href> must add it.

@@ -89,12 +89,10 @@ year are fetched at build time.
 
 The workflow reads the site URL from the repository's Pages settings and
 passes it as `SITE_URL`. `next.config.ts` derives `basePath` from it, so the
-same build serves as a project page (`https://kacigaya.github.io/portfolio`)
-or from a custom domain at its root. To attach the domain: set it under
-Settings → Pages, enable Enforce HTTPS, and point DNS at GitHub Pages
-(`A`/`AAAA` records for the apex, a `CNAME` for `www`). The next workflow run
-picks it up. Local builds default to `https://gayakaci.com`; set `SITE_URL`
-to build for another location.
+same build serves at a domain root (this repo is the user site,
+`https://kacigaya.github.io`) or under a subpath as a project page. Local
+builds default to `https://kacigaya.github.io`; set `SITE_URL` to build for
+another location.
 
 Pages sends no custom response headers, so the content security policy is a
 `<meta>` tag in `app/layout.tsx`.
