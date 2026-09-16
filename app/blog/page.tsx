@@ -13,6 +13,7 @@ import { Footer } from "@/components/footer";
 import { Nav } from "@/components/nav";
 import { SkipLink } from "@/components/skip-link";
 import { getAllPosts } from "@/lib/posts";
+import { FEED_PATH } from "@/lib/site";
 import { formatDate } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -38,7 +39,7 @@ export default function BlogIndex() {
           variant="outline"
           size="sm"
           className="mt-5"
-          render={<a href="/feed.xml" />}
+          render={<a href={FEED_PATH} />}
         >
           <Rss aria-hidden="true" />
           rss

@@ -12,6 +12,7 @@ import {
 } from "@/components/card";
 import { getAllPosts } from "@/lib/posts";
 import { formatDate } from "@/lib/utils";
+import { FEED_PATH } from "@/lib/site";
 
 export function Blogs() {
   const posts = getAllPosts();
@@ -64,7 +65,7 @@ export function Blogs() {
           browse all posts
           <ArrowUpRight aria-hidden="true" />
         </Button>
-        <Button variant="outline" size="sm" render={<a href="/feed.xml" />}>
+        <Button variant="outline" size="sm" render={<a href={FEED_PATH} />}>
           <Rss aria-hidden="true" />
           rss
         </Button>

@@ -12,17 +12,19 @@ import {
   CollapsibleTrigger,
 } from "@/components/collapsible";
 import { ThemeToggle } from "@/components/theme-provider";
+import { BASE_PATH } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
+// plain anchors, so the base path is added by hand
 const links = [
-  { id: "about", href: "/#about", label: "about" },
-  { id: "projects", href: "/#projects", label: "projects" },
-  { id: "contributions", href: "/#contributions", label: "contributions" },
-  { id: "blogs", href: "/#blogs", label: "writing" },
-  { id: "skills", href: "/#skills", label: "skills" },
-  { id: "certifications", href: "/#certifications", label: "certs" },
-  { id: "contact", href: "/#contact", label: "contact" },
-];
+  { id: "about", label: "about" },
+  { id: "projects", label: "projects" },
+  { id: "contributions", label: "contributions" },
+  { id: "blogs", label: "writing" },
+  { id: "skills", label: "skills" },
+  { id: "certifications", label: "certs" },
+  { id: "contact", label: "contact" },
+].map((l) => ({ ...l, href: `${BASE_PATH}/#${l.id}` }));
 
 // Marks the section currently under the nav bar. The bottom margin keeps a
 // section from staying active once it has scrolled past the top third.

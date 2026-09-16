@@ -87,10 +87,14 @@ lint, and `next build`, then uploads `out/`. It triggers on every push to
 `main` and once a day, since the projects, contribution calendar, and footer
 year are fetched at build time.
 
-The custom domain comes from `public/CNAME`. One-time setup on the repository:
-set the Pages source to GitHub Actions, add the custom domain, enable Enforce
-HTTPS, and point the domain's DNS at GitHub Pages (`A`/`AAAA` records for the
-apex, a `CNAME` for `www`).
+The workflow reads the site URL from the repository's Pages settings and
+passes it as `SITE_URL`. `next.config.ts` derives `basePath` from it, so the
+same build serves as a project page (`https://kacigaya.github.io/portfolio`)
+or from a custom domain at its root. To attach the domain: set it under
+Settings → Pages, enable Enforce HTTPS, and point DNS at GitHub Pages
+(`A`/`AAAA` records for the apex, a `CNAME` for `www`). The next workflow run
+picks it up. Local builds default to `https://gayakaci.com`; set `SITE_URL`
+to build for another location.
 
 Pages sends no custom response headers, so the content security policy is a
 `<meta>` tag in `app/layout.tsx`.

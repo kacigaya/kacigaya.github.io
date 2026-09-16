@@ -38,6 +38,16 @@ export const metadata: Metadata = {
       "Cybersecurity student and web security researcher building developer tools, browser automation, and security software.",
     type: "website",
     url: "/",
+    // a file in public/ rather than the app/opengraph-image convention: under
+    // a basePath the convention prefixes the path twice
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Gaya KACI, cybersecurity student and web security researcher",
+      },
+    ],
   },
   twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },

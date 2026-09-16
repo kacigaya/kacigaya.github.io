@@ -1,13 +1,14 @@
 import { socials } from "@/lib/socials";
+import { BASE_PATH, FEED_PATH } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const links = [
   { href: socials.github, label: "github", external: true },
   { href: socials.linkedin, label: "linkedin", external: true },
   { href: socials.x, label: "x", external: true },
-  { href: "/feed.xml", label: "rss", external: false },
-  { href: "/privacy", label: "privacy", external: false },
-  { href: "/cookies", label: "cookies", external: false },
+  { href: FEED_PATH, label: "rss", external: false },
+  { href: `${BASE_PATH}/privacy`, label: "privacy", external: false },
+  { href: `${BASE_PATH}/cookies`, label: "cookies", external: false },
 ];
 
 export function Footer({ className }: { className?: string }) {
