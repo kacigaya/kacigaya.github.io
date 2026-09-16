@@ -2,6 +2,9 @@ import { getAllPosts } from "@/lib/posts";
 import { SITE_URL } from "@/lib/site";
 import { utcDate } from "@/lib/utils";
 
+// the static export writes this handler's response to out/feed.xml at build
+export const dynamic = "force-static";
+
 const escape = (value: string) => value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 
 export function GET() {

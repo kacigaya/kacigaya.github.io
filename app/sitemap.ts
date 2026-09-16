@@ -3,6 +3,9 @@ import { getAllPosts } from "@/lib/posts";
 import { SITE_URL } from "@/lib/site";
 import { utcDate } from "@/lib/utils";
 
+// static export writes this route to a file at build
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: SITE_URL, changeFrequency: "monthly", priority: 1 },

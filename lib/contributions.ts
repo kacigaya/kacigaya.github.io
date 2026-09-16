@@ -1,4 +1,3 @@
-import { cacheLife } from "next/cache";
 import { GITHUB_LOGIN } from "@/lib/socials";
 import { utcDate } from "@/lib/utils";
 
@@ -64,25 +63,12 @@ export function toCalendar(days: ContributionDay[]): Calendar {
   return { weeks, months };
 }
 
-async function getToday() {
-  "use cache";
-  cacheLife("days");
-
-  return new Date().toISOString().slice(0, 10);
-}
-
+// Runs once, during the static export. The daily rebuild keeps the window
+// current.
 export async function getContributions(): Promise<
   (Calendar & { total: number }) | null
 > {
-  return getContributionsForDate(await getToday());
-}
-
-async function getContributionsForDate(
-  today: string,
-): Promise<(Calendar & { total: number }) | null> {
-  "use cache";
-  cacheLife("days");
-
+  const today = new Date().toISOString().slice(0, 10);
   try {
     // y=last is the rolling 12-month window GitHub shows on a profile, not the
     // calendar year. Its total lands under a "lastYear" key instead of a year.

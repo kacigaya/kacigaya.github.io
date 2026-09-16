@@ -36,35 +36,35 @@ export default function PrivacyPolicy() {
         <a href={`mailto:${socials.email}`}>{socials.email}</a>.
       </p>
 
-      <h2 className="md-h2 mt-10 text-base uppercase">server logs</h2>
+      <h2 className="md-h2 mt-10 text-base uppercase">request logs</h2>
       <p>
-        The web server in front of this site writes an access log entry for
-        every request. Each entry holds a truncated form of your IP address,
-        the time of the request, the method and path requested, the response
-        status and size, the request duration, and the <code>User-Agent</code>{" "}
-        and <code>Referer</code> headers your browser sent.
+        This site is a set of static files served by GitHub Pages. I run no
+        server of my own, so I hold no record of who visits: no IP addresses,
+        no timestamps, no user agents, nothing.
       </p>
       <p>
-        The truncation happens in the web server, before anything reaches the
-        disk, so the full address is never written down. An IPv4 address loses
-        its last octet and an IPv6 address is cut to its first 48 bits:{" "}
-        <code>203.0.113.47</code> is stored as <code>203.0.113.0</code>. That
-        is enough to tell one network&rsquo;s traffic from another when
-        something is being hammered, and not enough to pick you out of the
-        network you share it with.
-      </p>
-      <p>
-        These logs exist to keep the site running and to investigate abuse:
-        spotting errors, tracing outages, and recognising scanning or
-        brute-force traffic. The legal basis is legitimate interest, GDPR
-        article 6(1)(f), in operating and securing a service I am responsible
-        for. The logs are never used to build a profile of a visitor or to
-        measure audience.
-      </p>
-      <p>
-        Log files rotate on a fixed size and the rotation deletes the oldest
-        ones, so no entry survives longer than 30 days and in practice most are
-        gone sooner.
+        GitHub does see every request, because it answers them. GitHub{" "}
+        <a
+          href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection"
+          target="_blank"
+          rel="noreferrer"
+        >
+          states
+        </a>
+        <span className="sr-only"> (opens in new tab)</span> that it logs and
+        stores each visitor&rsquo;s IP address for security purposes, whether
+        or not the visitor is signed in, and it may serve the files from a
+        content delivery network with edges outside the EU. GitHub does this
+        as a service provider under the{" "}
+        <a
+          href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"
+          target="_blank"
+          rel="noreferrer"
+        >
+          GitHub General Privacy Statement
+        </a>
+        <span className="sr-only"> (opens in new tab)</span>, which also gives
+        its retention periods. I cannot see or change what it keeps.
       </p>
 
       <h2 className="md-h2 mt-10 text-base uppercase">
@@ -95,11 +95,12 @@ export default function PrivacyPolicy() {
       <h2 className="md-h2 mt-10 text-base uppercase">who else sees anything</h2>
       <ul>
         <li>
-          <strong>Oracle Cloud Infrastructure</strong>, which operates the
-          virtual server this site runs on, in its Paris region. The machine is
-          mine to administer, but Oracle owns the hardware underneath it, so the
-          traffic and the logs described above sit on their infrastructure.
-          Nothing leaves the EU.
+          <strong>GitHub, Inc.</strong>, which hosts the site on GitHub Pages
+          and delivers it through its content delivery network. GitHub is the
+          only party that handles your request, and the request logs described
+          above are its own. GitHub is a US company; its transfers out of the
+          EU rest on the EU-US Data Privacy Framework and standard contractual
+          clauses, as set out in its privacy statement.
         </li>
         <li>
           <strong>addy.io and my mail provider</strong>, and only for mail you
@@ -108,10 +109,10 @@ export default function PrivacyPolicy() {
       </ul>
       <p>
         There is no one else. The project and contribution data on the home page
-        is fetched from the GitHub API by the server, before the page reaches
-        you, so your browser never contacts GitHub for it. Every script, style,
-        font, and image is served from this domain; the site&rsquo;s content
-        security policy blocks off-origin loads outright.
+        is fetched from the GitHub API when the site is built, not when you
+        open it, so your browser never contacts GitHub for it. Every script,
+        style, font, and image is served from this domain; a content security
+        policy declared in each page blocks off-origin loads outright.
       </p>
       <p>
         Links out to GitHub, LinkedIn, X, and other sites are ordinary links.
@@ -129,12 +130,10 @@ export default function PrivacyPolicy() {
         answer within a month.
       </p>
       <p>
-        One honest limit: because the logs keep only a truncated address and no
-        identifier of any kind, I cannot tell which entries are yours, and I am
-        not going to collect more data about you in order to find out. GDPR
-        article 11 covers this, and the practical effect is that there is
-        nothing in the logs to hand over or single out for erasure. Mail you
-        have sent me is a different matter, and I can find and delete that on
+        One honest limit: I hold no data about your visits at all, so there is
+        nothing on my side to hand over or erase. Requests about the logs
+        GitHub keeps go to GitHub, under its privacy statement. Mail you have
+        sent me is a different matter, and I can find and delete that on
         request.
       </p>
       <p>

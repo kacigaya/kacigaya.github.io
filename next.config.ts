@@ -1,13 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  cacheComponents: true,
-  partialPrefetching: true,
-  // Ship a self-contained server.js so the runtime image carries no bun/npm and
-  // no dev dependencies.
-  output: "standalone",
-  // Don't advertise the framework. Security headers live in the Caddy site
-  // block, which fronts every request.
+  // GitHub Pages serves plain files, so the build writes a static site to
+  // out/. Data fetched in server components is fetched once, at build time.
+  output: "export",
+  // Don't advertise the framework. The static host sets no other headers; the
+  // content security policy lives in a meta tag in app/layout.tsx.
   poweredByHeader: false,
 };
 

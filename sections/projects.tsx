@@ -14,10 +14,10 @@ import {
   CollapsiblePanel,
   CollapsibleTrigger,
 } from "@/components/collapsible";
-import { getProjects } from "@/lib/projects";
+import { loadProjects } from "@/lib/projects";
 
 export async function Projects() {
-  const { pinned, more } = await getProjects();
+  const { pinned, more } = await loadProjects();
 
   return (
     <section id="projects" className="mt-12 border-t pt-12">

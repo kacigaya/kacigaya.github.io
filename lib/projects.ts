@@ -1,4 +1,3 @@
-import { cacheLife } from "next/cache";
 import { GITHUB_LOGIN } from "@/lib/socials";
 
 const MORE_PROJECTS_LIMIT = 18;
@@ -83,16 +82,9 @@ export function splitProjects(user: UserRepos) {
   return { pinned, more };
 }
 
-// This runs during the production prerender, so anything unhandled here fails
-// the build (and the Docker image build) rather than degrading the section.
-// Every failure mode falls through to the public API, then to nothing.
-export async function getProjects() {
-  "use cache";
-  cacheLife("days");
-
-  return loadProjects();
-}
-
+// This runs once, during the static export, so anything unhandled here fails
+// the build rather than degrading the section. Every failure mode falls
+// through to the public API, then to nothing.
 export async function loadProjects() {
   const token = process.env.GITHUB_TOKEN;
   if (!token) return getPublicProjects();

@@ -58,7 +58,7 @@ export default function CookiesPolicy() {
         </li>
         <li>
           <strong>Where it goes:</strong> nowhere. Local storage is not attached
-          to requests the way a cookie is, so the server never sees this value.
+          to requests the way a cookie is, so it never leaves your browser.
         </li>
       </ul>
       <p>
@@ -81,10 +81,10 @@ export default function CookiesPolicy() {
       <p>
         None are embedded, so none can set a cookie here. There are no ads, no
         embedded videos, no social widgets, no hosted fonts, and no tag
-        managers. Every asset comes from this domain, and the site&rsquo;s
-        content security policy blocks off-origin loads outright. GitHub data
-        shown on the home page is fetched server-side before the page reaches
-        you.
+        managers. Every asset comes from this domain, and a content security
+        policy declared in each page blocks off-origin loads outright. GitHub
+        data shown on the home page is fetched when the site is built, not
+        when you open it.
       </p>
       <p>
         Links out to GitHub, LinkedIn, or X will of course set cookies once you
@@ -99,8 +99,8 @@ export default function CookiesPolicy() {
         <a href={`mailto:${socials.email}`}>{socials.email}</a>.
       </p>
       <p>
-        Server request logs are separate from anything stored in your browser
-        and are described in the{" "}
+        The request logs GitHub keeps as the host are separate from anything
+        stored in your browser and are described in the{" "}
         <Link href="/privacy">privacy policy</Link>.
       </p>
 

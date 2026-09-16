@@ -1,0 +1,55 @@
+name: pages
+
+on:
+  push:
+    branches: [main]
+  # projects, contributions, and the footer year are baked in at build time;
+  # a daily rebuild keeps them current without a commit
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.14
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - run: bun install --frozen-lockfile
+      - run: bun test
+      - run: bun run lint
+      # bun installs, node builds: bun 1.3.14 crashes in next's TypeScript
+      # pass, so the build runs on node the same way the old image did.
+      - run: node node_modules/next/dist/bin/next build
+        env:
+          NEXT_TELEMETRY_DISABLED: "1"
+          # pinned repos come from the GraphQL API; without a usable token the
+          # build falls back to the public REST API
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

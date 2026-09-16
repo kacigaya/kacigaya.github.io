@@ -1,6 +1,5 @@
 import { socials } from "@/lib/socials";
 import { cn } from "@/lib/utils";
-import { cacheLife } from "next/cache";
 
 const links = [
   { href: socials.github, label: "github", external: true },
@@ -11,26 +10,9 @@ const links = [
   { href: "/cookies", label: "cookies", external: false },
 ];
 
-async function getCurrentYear() {
-  "use cache";
-  cacheLife("days");
-
-  return new Date().getFullYear();
-}
-
-export async function Footer({ className }: { className?: string }) {
-  return <CachedFooter className={className} year={await getCurrentYear()} />;
-}
-
-async function CachedFooter({
-  className,
-  year,
-}: {
-  className?: string;
-  year: number;
-}) {
-  "use cache";
-  cacheLife("days");
+export function Footer({ className }: { className?: string }) {
+  // evaluated at build time; the daily rebuild rolls it over in January
+  const year = new Date().getFullYear();
 
   return (
     <footer

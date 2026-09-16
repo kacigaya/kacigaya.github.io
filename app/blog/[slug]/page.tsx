@@ -71,7 +71,7 @@ export async function generateMetadata({
       description: post.description,
       type: "article",
       url: `/blog/${slug}`,
-      images: ["/opengraph-image"],
+      images: ["/opengraph-image.png"],
       publishedTime: post.date,
       tags: post.tags,
     },

@@ -5,6 +5,24 @@ import { SITE_URL } from "@/lib/site";
 import { socials } from "@/lib/socials";
 import "./globals.css";
 
+// GitHub Pages sets no response headers, so the policy ships in the document.
+// Off-origin loads stay blocked. 'unsafe-inline' is unavoidable on a static
+// export: there is no server to mint nonces, and Next inlines a per-page RSC
+// payload script whose hash changes with every edit. A meta policy cannot
+// carry frame-ancestors or report-uri. Production only: dev needs eval and a
+// websocket for HMR.
+const CSP = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline'",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data:",
+  "font-src 'self'",
+  "connect-src 'self'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+].join("; ");
+
 export const metadata: Metadata = {
   title: {
     default: "Gaya KACI | Cybersecurity and web security",
@@ -45,6 +63,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        {process.env.NODE_ENV === "production" && (
+          <meta httpEquiv="Content-Security-Policy" content={CSP} />
+        )}
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
       <body className="min-h-dvh">

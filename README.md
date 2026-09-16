@@ -44,7 +44,8 @@
 - Node 22.11.0 (see `.nvmrc`)
 - An optional `GITHUB_TOKEN` in the environment. The Projects section uses the
   GitHub GraphQL API when a token is present and falls back to the public REST
-  API without one. A classic token with `public_repo` scope is enough.
+  API without one. A classic token with `public_repo` scope is enough. The
+  Pages workflow passes the Actions token automatically.
 
 ### Installation
 
@@ -77,3 +78,22 @@ bun test
 bun run lint
 bun run build
 ```
+
+## Deployment
+
+The site is a static export (`output: "export"` in `next.config.ts`) published
+to GitHub Pages by `.github/workflows/pages.yml`. The workflow runs the tests,
+lint, and `next build`, then uploads `out/`. It triggers on every push to
+`main` and once a day, since the projects, contribution calendar, and footer
+year are fetched at build time.
+
+The custom domain comes from `public/CNAME`. One-time setup on the repository:
+set the Pages source to GitHub Actions, add the custom domain, enable Enforce
+HTTPS, and point the domain's DNS at GitHub Pages (`A`/`AAAA` records for the
+apex, a `CNAME` for `www`).
+
+Pages sends no custom response headers, so the content security policy is a
+`<meta>` tag in `app/layout.tsx`.
+
+To check the export locally, build it and serve `out/` with any static file
+server that maps `/path` to `path.html` and unknown paths to `404.html`.
