@@ -3,7 +3,11 @@ import type { NextConfig } from "next";
 // The Pages workflow sets SITE_URL from the repository's Pages configuration:
 // https://kacigaya.github.io/portfolio while the site is a project page, the
 // bare custom domain once one is attached. Local builds default to the domain.
-const siteUrl = (process.env.SITE_URL ?? "https://gayakaci.com").replace(/\/$/, "");
+// Pages reports http:// for a custom domain until its certificate is issued;
+// canonical and feed URLs must not inherit that.
+const siteUrl = (process.env.SITE_URL ?? "https://gayakaci.com")
+  .replace(/^http:/, "https:")
+  .replace(/\/$/, "");
 const basePath = new URL(siteUrl).pathname.replace(/\/$/, "");
 
 const nextConfig: NextConfig = {
