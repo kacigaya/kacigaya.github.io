@@ -14,6 +14,12 @@ const nextConfig: NextConfig = {
   // GitHub Pages serves plain files, so the build writes a static site to
   // out/. Data fetched in server components is fetched once, at build time.
   output: "export",
+  // Emit each route as a directory index (blog/index.html) rather than a
+  // sibling file (blog.html). GitHub Pages serves that for both /blog/ and
+  // /blog (it 301s the bare form to the slash), so neither shape 404s. The
+  // static-file default (blog.html) only answered /blog and returned 404 for
+  // the trailing-slash form that older links and the address bar produce.
+  trailingSlash: true,
   basePath,
   // inlined for lib/site.ts, which client components also import
   env: { NEXT_PUBLIC_SITE_URL: siteUrl, NEXT_PUBLIC_BASE_PATH: basePath },
