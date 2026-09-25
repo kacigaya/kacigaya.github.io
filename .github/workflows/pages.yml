@@ -29,8 +29,6 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version-file: .nvmrc
-      # reads the Pages settings: base_url is the project-page URL now and
-      # the custom domain once one is attached, so the build follows it
       - id: pages
         uses: actions/configure-pages@v6
       - run: bun install --frozen-lockfile
@@ -41,7 +39,7 @@ jobs:
       - run: node node_modules/next/dist/bin/next build
         env:
           NEXT_TELEMETRY_DISABLED: "1"
-          SITE_URL: ${{ steps.pages.outputs.base_url }}
+          SITE_URL: https://kacigaya.github.io
           # pinned repos come from the GraphQL API; without a usable token the
           # build falls back to the public REST API
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
