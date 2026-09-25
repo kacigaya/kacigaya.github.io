@@ -10,5 +10,7 @@ export const socials = {
   linkedinLabel: "linkedin.com/in/kacigaya",
   x: "https://x.com/kacigaya",
   xLabel: "x.com/kacigaya",
+  googleDeveloper: "https://g.dev/kacigaya",
+  googleDeveloperLabel: "g.dev/kacigaya",
   location: "Paris, FR",
 } as const;
