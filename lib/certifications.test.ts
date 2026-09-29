@@ -6,8 +6,11 @@ test("names are unique, so React keys stay stable", () => {
   expect(new Set(names).size).toBe(names.length);
 });
 
-test("every credential link points at credly", () => {
+test("credential links use HTTPS and recognized providers", () => {
   for (const cert of [...certifications, ...foundational]) {
-    if (cert.url) expect(cert.url).toStartWith("https://www.credly.com/badges/");
+    if (!cert.url) continue;
+    const url = new URL(cert.url);
+    expect(url.protocol).toBe("https:");
+    expect(["www.credly.com", "www.skills.google"]).toContain(url.hostname);
   }
 });

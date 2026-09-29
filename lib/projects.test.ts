@@ -1,5 +1,6 @@
 import { afterEach, expect, test } from "bun:test";
 import { loadProjects, splitProjects, type RepoNode } from "./projects";
+import { SITE_URL } from "./site";
 
 function repo(name: string, extra: Partial<RepoNode> = {}): RepoNode {
   return {
@@ -95,4 +96,28 @@ test("description and homepage normalize", () => {
   expect(pinned[0].homepage).toBeUndefined();
   expect(pinned[1].homepage).toBe("https://binje.duckdns.org/");
   expect(pinned[2].homepage).toBeUndefined();
+});
+
+test("portfolio card uses the current site URL despite stale GitHub metadata", () => {
+  const { pinned } = splitProjects({
+    pinnedItems: { nodes: [repo("portfolio", { homepageUrl: "https://gayakaci.com/" })] },
+    repositories: { nodes: [] },
+  });
+
+  expect(pinned[0].homepage).toBe(SITE_URL);
+});
+
+test("public project fallback also replaces the retired portfolio URL", async () => {
+  delete process.env.GITHUB_TOKEN;
+  stubFetch(() => Promise.resolve(Response.json([{
+    name: "portfolio",
+    description: null,
+    html_url: "https://github.com/kacigaya/portfolio",
+    homepage: "https://gayakaci.com/",
+    archived: false,
+    fork: false,
+    topics: [],
+  }])));
+
+  expect((await loadProjects()).pinned[0].homepage).toBe(SITE_URL);
 });

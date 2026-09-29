@@ -1,10 +1,9 @@
-// Checked in rather than fetched: Credly covers most of these, but CCNA and the
-// Google SecOps course only exist on LinkedIn, so one API call would still miss
-// half the list. Order is newest first.
+// Checked in rather than fetched: credentials span multiple providers.
+// Order is newest first.
 export type Certification = {
   name: string;
   issuer: string;
-  // Credly share link. Absent means there is nothing public to verify against.
+  // Public credential or provider profile link, when available.
   url?: string;
 };
 
@@ -35,7 +34,11 @@ export const certifications: Certification[] = [
     issuer: "Cisco",
     url: `${CREDLY}/530d2f17-cfd0-488b-87a1-1d36315ab7ee/public_url`,
   },
-  { name: "Google SecOps", issuer: "Google Cloud Security" },
+  {
+    name: "Google SecOps",
+    issuer: "Google Cloud Security",
+    url: "https://www.skills.google/public_profiles/b8d7d609-b00f-4fa4-9ec4-1552756cf3e0",
+  },
 ];
 
 export const foundational: Certification[] = [

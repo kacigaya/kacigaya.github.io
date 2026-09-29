@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="app/icon.svg" alt="Portfolio logo" width="140">
+  <img src="public/logo.svg" alt="Portfolio logo" width="140">
 </p>
 
 <h1 align="center">Portfolio</h1>
@@ -87,12 +87,9 @@ lint, and `next build`, then uploads `out/`. It triggers on every push to
 `main` and once a day, since the projects, contribution calendar, and footer
 year are fetched at build time.
 
-The workflow reads the site URL from the repository's Pages settings and
-passes it as `SITE_URL`. `next.config.ts` derives `basePath` from it, so the
-same build serves at a domain root (this repo is the user site,
-`https://kacigaya.github.io`) or under a subpath as a project page. Local
-builds default to `https://kacigaya.github.io`; set `SITE_URL` to build for
-another location.
+The workflow builds for `https://kacigaya.github.io`. `next.config.ts`
+derives `basePath` from `SITE_URL`, which local builds can set for another
+location. Without that override, local builds use the same URL as Pages.
 
 Pages sends no custom response headers, so the content security policy is a
 `<meta>` tag in `app/layout.tsx`.

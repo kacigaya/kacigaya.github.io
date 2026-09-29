@@ -10,7 +10,7 @@ export function Certifications() {
     <section id="certifications" className="mt-12 border-t pt-12">
       <h2 className="md-h2 text-base uppercase">certifications</h2>
       <p className="mt-2 text-xs text-muted-foreground">
-        linked rows verify on credly
+        linked rows open credentials or provider profiles
       </p>
       <Card className="mt-4">
         <CardPanel className="flex flex-col p-2">

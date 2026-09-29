@@ -6,6 +6,7 @@ const links = [
   { href: socials.github, label: "github", external: true },
   { href: socials.linkedin, label: "linkedin", external: true },
   { href: socials.x, label: "x", external: true },
+  { href: socials.googleDeveloper, label: "g.dev", external: true },
   { href: FEED_PATH, label: "rss", external: false },
   { href: `${BASE_PATH}/privacy`, label: "privacy", external: false },
   { href: `${BASE_PATH}/cookies`, label: "cookies", external: false },

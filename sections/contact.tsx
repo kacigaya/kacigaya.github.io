@@ -1,4 +1,4 @@
-import { Mail } from "lucide-react";
+import { CodeXml, Mail } from "lucide-react";
 import { Button } from "@/components/button";
 import { Card, CardPanel } from "@/components/card";
 import { GithubIcon, LinkedinIcon, XIcon } from "@/components/icons";
@@ -30,6 +30,12 @@ const lines = [
     label: "x",
     value: socials.xLabel,
     href: socials.x,
+  },
+  {
+    icon: CodeXml,
+    label: "g.dev",
+    value: socials.googleDeveloperLabel,
+    href: socials.googleDeveloper,
   },
 ];
 

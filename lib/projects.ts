@@ -1,4 +1,5 @@
 import { GITHUB_LOGIN } from "@/lib/socials";
+import { SITE_URL } from "@/lib/site";
 
 const MORE_PROJECTS_LIMIT = 18;
 
@@ -62,12 +63,17 @@ function normalizeHomepage(homepage: string | null): string | undefined {
     : undefined;
 }
 
+function projectHomepage(name: string, homepage: string | null): string | undefined {
+  // The portfolio repository still lists the retired custom domain on GitHub.
+  return name === "portfolio" ? SITE_URL : normalizeHomepage(homepage);
+}
+
 function toProject(repo: RepoNode): Project {
   return {
     name: repo.name,
     desc: repo.description ?? "",
     url: repo.url,
-    homepage: normalizeHomepage(repo.homepageUrl),
+    homepage: projectHomepage(repo.name, repo.homepageUrl),
     stack: repo.repositoryTopics.nodes.map((n) => n.topic.name),
   };
 }
@@ -145,7 +151,7 @@ async function fetchPublicProjects() {
       name: repo.name,
       desc: repo.description ?? "",
       url: repo.html_url,
-      homepage: normalizeHomepage(repo.homepage),
+      homepage: projectHomepage(repo.name, repo.homepage),
       stack: repo.topics,
     }));
 
