@@ -20,14 +20,6 @@ export function About() {
           network and systems administration.
         </p>
         <p>
-          At{" "}
-          <span className="text-foreground" translate="no">
-            Société Générale Assurance
-          </span>, I
-          research complex web targets, reverse engineer anti-bot systems, and
-          study browser fingerprinting.
-        </p>
-        <p>
           Outside work, I build small CLIs, browser tools, and AI projects. I
           work across Linux, macOS, and Windows, and usually read the source
           before the docs.
