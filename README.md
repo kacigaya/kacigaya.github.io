@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://nextjs.org"><img alt="Next.js 16.3.0" src="https://shieldcn.dev/badge/Next.js-16.3.0-171717.svg?variant=secondary&amp;logo=nextdotjs"></a>
+  <a href="https://nextjs.org"><img alt="Next.js 16.3.3" src="https://shieldcn.dev/badge/Next.js-16.3.3-171717.svg?variant=secondary&amp;logo=nextdotjs"></a>
   <a href="https://bun.sh"><img alt="Bun 1.3.14" src="https://shieldcn.dev/badge/Bun-1.3.14-fbf0df.svg?variant=secondary&amp;logo=bun&amp;logoColor=171717"></a>
   <a href="https://tailwindcss.com"><img alt="Tailwind CSS 4.3.3" src="https://shieldcn.dev/badge/Tailwind_CSS-4.3.3-06b6d4.svg?variant=secondary&amp;logo=tailwindcss"></a>
   <a href="https://www.typescriptlang.org"><img alt="TypeScript 5.9.3" src="https://shieldcn.dev/badge/TypeScript-5.9.3-3178c6.svg?variant=secondary&amp;logo=typescript"></a>
@@ -18,11 +18,14 @@
 
 ## Features
 
-- Single-page scroll layout with anchor navigation
-- Terminal-inspired UI with prompt details
-- Blinking cursor and scroll-triggered fade-in animations
-- Selected projects with a browsable archive
-- Markdown blog, RSS feed, sitemap, and structured metadata
+- Single-page scroll layout with anchor navigation and an active-section indicator
+- Terminal-inspired UI with prompt details and a blinking cursor
+- Experience timeline and a downloadable CV
+- Selected projects pulled live from GitHub, with language, stars, and last-push
+  date, plus a browsable archive
+- Markdown blog with a featured set on the home page, RSS feed, sitemap, and
+  per-post Open Graph images
+- Person and BlogPosting structured data, and an RFC 9116 `security.txt`
 - Skills grouped by field and frequency of use
 - Responsive, keyboard-accessible interface
 - Self-hosted JetBrains Nerd Font
@@ -64,11 +67,15 @@ Open [http://localhost:3000](http://localhost:3000) to view the app.
 ### Project structure
 
 ```
-app/            # Next.js App Router pages, layout, fonts and global styles
-components/     # Reusable UI components (Nav, Caret, Reveal, icons)
-sections/       # Page sections (Hero, About, Projects, Skills, Contact)
+app/            # Next.js App Router pages, layout, fonts, routes (feed, robots, sitemap, security.txt) and global styles
+components/     # Reusable UI components (Nav, Caret, Deferred, icons)
+sections/       # Page sections (Hero, About, Experience, Projects, Skills, Certifications, Contact)
 lib/            # Data loading (GitHub projects and contributions, markdown posts) and site constants
-public/         # Logo SVGs and self-hosted font files
+content/posts/  # Markdown blog posts with frontmatter
+public/         # Logo, Open Graph image, CV, and self-hosted font files
+assets/         # Fonts bundled into the per-post Open Graph images (not published)
+scripts/        # Post-build helper that gives the Open Graph images a .png extension
+cv/             # Source HTML the CV PDF is rendered from
 ```
 
 ## Quality checks
@@ -83,9 +90,11 @@ bun run build
 
 The site is a static export (`output: "export"` in `next.config.ts`) published
 to GitHub Pages by `.github/workflows/pages.yml`. The workflow runs the tests,
-lint, and `next build`, then uploads `out/`. It triggers on every push to
+lint, and `next build`, renames the per-post Open Graph files to `.png`
+(`scripts/postbuild-og.mjs`), then uploads `out/`. It triggers on every push to
 `main` and once a day, since the projects, contribution calendar, and footer
-year are fetched at build time.
+year are fetched at build time. Pull requests run the same checks without
+deploying, via `.github/workflows/ci.yml`.
 
 The workflow builds for `https://kacigaya.github.io`. `next.config.ts`
 derives `basePath` from `SITE_URL`, which local builds can set for another
@@ -94,5 +103,10 @@ location. Without that override, local builds use the same URL as Pages.
 Pages sends no custom response headers, so the content security policy is a
 `<meta>` tag in `app/layout.tsx`.
 
-To check the export locally, build it and serve `out/` with any static file
-server that maps `/path` to `path.html` and unknown paths to `404.html`.
+To check the export locally, run `bun run build`, then `node
+scripts/postbuild-og.mjs`, and serve `out/` with any static file server that
+maps `/path` to `path.html` and unknown paths to `404.html`.
+
+To regenerate the CV PDF after editing `cv/cv.html`, print it to
+`public/CV_Gaya_KACI.pdf` with a headless Chromium
+(`chrome --headless --no-pdf-header-footer --print-to-pdf`).

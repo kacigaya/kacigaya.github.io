@@ -31,6 +31,7 @@ export type PostMeta = {
   minutes: number;
   tags?: string[];
   repo?: string;
+  featured?: boolean;
 };
 
 export type Post = PostMeta & { content: string };
@@ -54,6 +55,9 @@ function metadata(
   if (data.repo !== undefined && (typeof data.repo !== "string" || !URL.canParse(data.repo) || !/^https?:$/.test(new URL(data.repo).protocol))) {
     throw new Error(`${slug}: repo must be an HTTP(S) URL`);
   }
+  if (data.featured !== undefined && typeof data.featured !== "boolean") {
+    throw new Error(`${slug}: featured must be a boolean`);
+  }
   return {
     slug,
     title: data.title,
@@ -62,6 +66,7 @@ function metadata(
     minutes: readingTime(content),
     tags: data.tags as string[] | undefined,
     repo: data.repo as string | undefined,
+    featured: data.featured as boolean | undefined,
   };
 }
 
@@ -163,6 +168,15 @@ export function getAllPosts(): PostMeta[] {
       return metadata(slug, data, content);
     })
     .sort((a, b) => (a.date < b.date ? 1 : -1));
+}
+
+// The homepage leads with research rather than the newest post, so it shows
+// the posts flagged `featured` (newest first). With none flagged it falls back
+// to the latest few, so the section is never empty.
+export function getFeaturedPosts(limit = 4): PostMeta[] {
+  const posts = getAllPosts();
+  const featured = posts.filter((p) => p.featured);
+  return (featured.length > 0 ? featured : posts).slice(0, limit);
 }
 
 export function getPost(slug: string): Post | null {

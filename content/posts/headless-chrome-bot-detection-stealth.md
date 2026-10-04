@@ -1,6 +1,7 @@
 ---
 title: "Passing Bot Detection in Headless Chrome"
 date: "2026-06-03"
+featured: true
 description: "Making headless Chromium clear the same bot-detection suite as headed mode with a simulated screen and a masked user agent, no JavaScript spoofing."
 tags: ["browser-automation", "stealth", "playwright", "chromium"]
 repo: "https://github.com/kacigaya/webskrap"
