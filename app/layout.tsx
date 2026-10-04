@@ -85,6 +85,19 @@ export default function RootLayout({
           name: "Gaya KACI",
           url: SITE_URL,
           jobTitle: "Cybersecurity student and web security researcher",
+          worksFor: { "@type": "Organization", name: "Société Générale Assurance" },
+          alumniOf: {
+            "@type": "CollegeOrUniversity",
+            name: "Efrei Paris – Panthéon-Assas Université",
+          },
+          address: { "@type": "PostalAddress", addressLocality: "Paris", addressCountry: "FR" },
+          knowsAbout: [
+            "web security",
+            "browser automation",
+            "browser fingerprinting",
+            "reverse engineering",
+            "penetration testing",
+          ],
           sameAs: [socials.github, socials.linkedin, socials.x, socials.googleDeveloper],
         }).replace(/</g, "\\u003c") }} />
         {children}

@@ -1,7 +1,8 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
 import { Button } from "@/components/button";
 import { Caret } from "@/components/caret";
 import { Logo } from "@/components/logo";
+import { BASE_PATH } from "@/lib/site";
 import { socials } from "@/lib/socials";
 
 export function Hero() {
@@ -42,6 +43,18 @@ export function Hero() {
         </Button>
         <Button size="lg" variant="outline" render={<a href="#blogs" />}>
           read posts
+        </Button>
+        {/* a static asset in public/, so the base path is added by hand */}
+        <Button
+          size="lg"
+          variant="outline"
+          render={
+            <a href={`${BASE_PATH}/CV_Gaya_KACI.pdf`} target="_blank" rel="noreferrer" />
+          }
+        >
+          <Download aria-hidden="true" />
+          download cv
+          <span className="sr-only"> (PDF, opens in new tab)</span>
         </Button>
       </div>
       <p className="mt-6 text-sm text-muted-foreground">

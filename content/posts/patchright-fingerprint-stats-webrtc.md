@@ -1,6 +1,7 @@
 ---
 title: "Tuning Patchright for fingerprint-stats pages"
 date: "2026-06-07"
+featured: true
 description: "Why AmiUnique and WebRTC leak tests need a different approach than bot-detection demos, and how WebSkrap handles them with native Chromium flags and opt-in context metadata instead of JavaScript spoofing."
 tags: ["browser-automation", "stealth", "patchright", "chromium", "webrtc"]
 repo: "https://github.com/kacigaya/webskrap"

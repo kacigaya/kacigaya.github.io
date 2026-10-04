@@ -1,6 +1,7 @@
 ---
 title: "Teensy BadUSB reverse shell POC"
 date: "2026-05-07"
+featured: true
 description: "HID keyboard injection on a Teensy 3.2 chains into a fileless PowerShell reverse shell on Windows."
 tags: ["badusb", "powershell", "windows", "red-team"]
 repo: "https://github.com/kacigaya/teensy-reverse-shell"

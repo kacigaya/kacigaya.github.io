@@ -24,3 +24,17 @@ const DATE_FORMAT = new Intl.DateTimeFormat("en-US", {
 export function formatDate(iso: string): string {
   return DATE_FORMAT.format(utcDate(iso));
 }
+
+// Month and year only, for the "updated" line on project cards. Same pinned
+// locale and zone as formatDate, so server and browser agree. Accepts the full
+// ISO timestamp the GitHub API returns.
+const MONTH_FORMAT = new Intl.DateTimeFormat("en-US", {
+  timeZone: "UTC",
+  year: "numeric",
+  month: "short",
+});
+
+export function formatMonth(iso: string): string {
+  const date = new Date(iso);
+  return Number.isNaN(date.valueOf()) ? "" : MONTH_FORMAT.format(date);
+}

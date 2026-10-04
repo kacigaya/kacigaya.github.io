@@ -43,6 +43,9 @@ jobs:
           # pinned repos come from the GraphQL API; without a usable token the
           # build falls back to the public REST API
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # give the per-post opengraph-image files a .png extension so Pages serves
+      # them as image/png
+      - run: node scripts/postbuild-og.mjs
       - uses: actions/upload-pages-artifact@v5
         with:
           path: out

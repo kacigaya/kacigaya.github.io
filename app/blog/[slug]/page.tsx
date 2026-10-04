@@ -21,6 +21,7 @@ import {
   type PostMeta,
 } from "@/lib/posts";
 import { formatDate } from "@/lib/utils";
+import { SITE_URL } from "@/lib/site";
 import "./prose.css";
 
 const getCachedPost = cache(getPost);
@@ -71,7 +72,12 @@ export async function generateMetadata({
       description: post.description,
       type: "article",
       url: `/blog/${slug}`,
-      images: ["/opengraph-image.png"],
+      // The opengraph-image route in this segment renders the PNG, but a static
+      // export writes it extensionless, which GitHub Pages serves with a
+      // non-image MIME type. postbuild-og.mjs renames it to .png, so the URL is
+      // set by hand here (overriding the convention's extensionless default) to
+      // match the renamed file.
+      images: [`/blog/${slug}/opengraph-image.png`],
       publishedTime: post.date,
       tags: post.tags,
     },
@@ -112,8 +118,27 @@ async function BlogPostContent({
   const headings = getHeadings(post.content);
   const { older, newer } = getAdjacentPosts(slug);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    url: `${SITE_URL}/blog/${slug}/`,
+    mainEntityOfPage: `${SITE_URL}/blog/${slug}/`,
+    image: `${SITE_URL}/blog/${slug}/opengraph-image.png`,
+    keywords: post.tags,
+    author: { "@type": "Person", name: "Gaya KACI", url: SITE_URL },
+  };
+
   return (
     <main id="main" className="mx-auto max-w-3xl px-6 md:px-8 pt-24 pb-32">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         <p className="text-sm text-muted-foreground">/blog/{post.slug}.md</p>
         <header className="mt-6 border-b pb-6">
           <h1 className="md-h1 text-2xl md:text-3xl leading-tight text-balance">

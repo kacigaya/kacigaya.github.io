@@ -5,6 +5,7 @@ import { Separator } from "@/components/separator";
 import { SkipLink } from "@/components/skip-link";
 import { Hero } from "@/sections/hero";
 import { About } from "@/sections/about";
+import { Experience } from "@/sections/experience";
 import { Projects } from "@/sections/projects";
 import { Contributions } from "@/sections/contributions";
 import { Blogs } from "@/sections/blogs";
@@ -21,6 +22,9 @@ export default function Page() {
         <Hero />
         <Deferred>
           <About />
+        </Deferred>
+        <Deferred>
+          <Experience />
         </Deferred>
         <Deferred>
           <Projects />

@@ -98,6 +98,31 @@ test("description and homepage normalize", () => {
   expect(pinned[2].homepage).toBeUndefined();
 });
 
+test("stars, language, and push date carry through; missing ones default", () => {
+  const { pinned } = splitProjects({
+    pinnedItems: {
+      nodes: [
+        repo("full", {
+          stargazerCount: 12,
+          primaryLanguage: { name: "Rust" },
+          pushedAt: "2026-01-15T10:00:00Z",
+        }),
+        repo("sparse", { primaryLanguage: null }),
+      ],
+    },
+    repositories: { nodes: [] },
+  });
+
+  expect(pinned[0]).toMatchObject({
+    stars: 12,
+    language: "Rust",
+    pushedAt: "2026-01-15T10:00:00Z",
+  });
+  expect(pinned[1].stars).toBe(0);
+  expect(pinned[1].language).toBeUndefined();
+  expect(pinned[1].pushedAt).toBeUndefined();
+});
+
 test("portfolio card uses the current site URL despite stale GitHub metadata", () => {
   const { pinned } = splitProjects({
     pinnedItems: { nodes: [repo("portfolio", { homepageUrl: "https://gayakaci.com/" })] },

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Gaya KACI — CV</title>
+<style>
+  @page { size: A4; margin: 13mm 14mm; }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: "Liberation Sans", "DejaVu Sans", Arial, sans-serif;
+    color: #151516;
+    font-size: 9.6px;
+    line-height: 1.42;
+    margin: 0;
+  }
+  .mono { font-family: "DejaVu Sans Mono", "Liberation Mono", monospace; }
+  header { border-bottom: 1.5px solid #151516; padding-bottom: 7px; margin-bottom: 10px; }
+  h1 { font-size: 22px; margin: 0; letter-spacing: 0.5px; text-transform: uppercase; }
+  .role { font-size: 10.5px; color: #3a3a3c; margin-top: 2px; }
+  .contact { margin-top: 5px; font-size: 9px; color: #3a3a3c; }
+  .contact a { color: #151516; text-decoration: none; }
+  .contact span { color: #9a9a9e; margin: 0 5px; }
+  h2 {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+    margin: 13px 0 5px; padding-bottom: 2px; border-bottom: 1px solid #d7d7da; color: #151516;
+  }
+  .job { margin-bottom: 7px; }
+  .job-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .job-title { font-weight: 700; }
+  .job-title .org { font-weight: 400; color: #3a3a3c; }
+  .dates { color: #6a6a6e; font-size: 8.6px; white-space: nowrap; }
+  ul { margin: 3px 0 0; padding-left: 14px; }
+  li { margin: 1.5px 0; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 1px 22px; }
+  .two li { list-style: none; position: relative; padding-left: 10px; }
+  .two li::before { content: "–"; position: absolute; left: 0; color: #9a9a9e; }
+  .skill-row { margin: 2.5px 0; }
+  .skill-row b { display: inline-block; min-width: 118px; color: #151516; }
+  .skill-row span { color: #3a3a3c; }
+  .inline li { display: inline; }
+  .edu li { margin: 1px 0; }
+  .edu b { font-weight: 700; }
+  .muted { color: #3a3a3c; }
+  p { margin: 2px 0; }
+</style>
+</head>
+<body>
+  <header>
+    <h1 class="mono">Gaya KACI</h1>
+    <div class="role">Web Cybersecurity Engineer · Security Researcher</div>
+    <div class="contact mono">
+      Paris, Île-de-France
+      <span>·</span><a href="mailto:contact@gaya.anonaddy.com">contact@gaya.anonaddy.com</a>
+      <span>·</span><a href="https://github.com/kacigaya">github.com/kacigaya</a>
+      <span>·</span><a href="https://linkedin.com/in/kacigaya">linkedin.com/in/kacigaya</a>
+    </div>
+  </header>
+
+  <section>
+    <h2>Experience</h2>
+    <div class="job">
+      <div class="job-head">
+        <div class="job-title">Web Cybersecurity Engineer <span class="org">— Société Générale Assurance, La Défense</span></div>
+        <div class="dates">Sep 2025 – Present</div>
+      </div>
+      <ul>
+        <li>Build and maintain Python automation for complex web workflows and browser-driven interactions (API integration, session management, user-journey replay).</li>
+        <li>Analyze HTML/CSS/JS structure and network traffic with DevTools and Burp Suite to model and reproduce target behavior.</li>
+        <li>Engineer browser identity (user agents, technical fingerprints) to keep automated processes stable against anti-bot defenses.</li>
+        <li>Harden scripts with timeout, retry, and error handling, plus quality control on extracted data.</li>
+        <li>Built a PowerShell tool (TUI + GUI) to download, classify, and analyze SonarQube SBOM files, with automated vulnerability and CVE reporting.</li>
+        <li>Track and triage vulnerabilities with Qualys; automate cloud VM provisioning in PowerShell and diagnose environments via Bash across Azure and AWS.</li>
+      </ul>
+    </div>
+    <div class="job">
+      <div class="job-head">
+        <div class="job-title">Network &amp; Systems Administrator <span class="org">— Dolce Hotel Versailles by Wyndham, Jouy-en-Josas</span></div>
+        <div class="dates">Jul 2024 – Sep 2025</div>
+      </div>
+      <ul>
+        <li>Administered the network: VLANs, access points, and Cisco Meraki switches.</li>
+        <li>Deployed an Acronis backup server and vCenter virtualization.</li>
+        <li>Managed Active Directory, Microsoft 365, and Linux/Windows servers.</li>
+        <li>Handled user support and incident resolution; configured GLPI, xRDP, DNS, and DHCP.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Projects</h2>
+    <ul>
+      <li><b>GhostPWN</b> — Autonomous pentest agent (Rust, interactive ratatui TUI) with multi-provider LLM orchestration and offensive-analysis workflows.</li>
+      <li><b>teensy-reverse-shell</b> — BadUSB PoC (Teensy 3.2): HID injection, fileless PowerShell payload, and TCP reverse shell for authorized red-team testing.</li>
+      <li><b>Personal Wazuh SOC</b> — Deployed a Wazuh SIEM/EDR platform for endpoint monitoring and log analysis.</li>
+      <li><b>binje</b> — Film and series discovery web app (Next.js, TMDB API).</li>
+      <li><b>Open-source tools</b> — pdfcmprs (in-browser PDF compression), bangs (shortcut search engine), lightchat (multi-LLM chat), DNSSwitcher (macOS DNS profiles), spotblock, clean-tweetx (Chrome extension).</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Skills</h2>
+    <div class="skill-row"><b>Security</b> <span>Nmap, Metasploit, Burp Suite, Snort, Suricata, Wireshark, Hydra, John the Ripper</span></div>
+    <div class="skill-row"><b>Development</b> <span>Python, C, Pascal, Assembly, JavaScript, TypeScript, React, Next.js, HTML, CSS, PHP</span></div>
+    <div class="skill-row"><b>Cloud &amp; DevOps</b> <span>Docker, Kubernetes, Azure, AWS, PowerShell, Bash</span></div>
+    <div class="skill-row"><b>Scraping &amp; automation</b> <span>Playwright, Selenium, Crawlee, Puppeteer, Scrapy, BeautifulSoup, Camoufox, Pydoll, undetected-chromedriver; anti-detection (WebGL/Canvas spoofing, UA rotation), proxy management</span></div>
+    <div class="skill-row"><b>AI / ML</b> <span>TensorFlow, PyTorch, scikit-learn, Hugging Face, OpenRouter</span></div>
+    <div class="skill-row"><b>Databases</b> <span>MySQL, MongoDB, PostgreSQL, Firebase, Oracle</span></div>
+    <div class="skill-row"><b>Systems</b> <span>Windows, Debian, Arch Linux, Kali Linux, macOS, Android</span></div>
+    <div class="skill-row"><b>Design</b> <span>Figma, Adobe Illustrator, Adobe Photoshop</span></div>
+  </section>
+
+  <div class="two-col" style="display:grid; grid-template-columns: 1.1fr 0.9fr; gap: 0 26px;">
+    <section>
+      <h2>Education</h2>
+      <ul class="edu" style="list-style:none; padding-left:0;">
+        <li><b>M.Sc. Cybersecurity</b> <span class="muted">— Efrei Paris / Panthéon-Assas Université</span></li>
+        <li><b>B.Sc. Cybersecurity</b> <span class="muted">— ESGI Paris</span></li>
+        <li><b>B.Sc. Computer Science</b> <span class="muted">— Université d'Orléans</span></li>
+        <li><b>B.Sc. Computer Science</b> <span class="muted">— Université Mouloud Mammeri</span></li>
+        <li><span class="muted">Baccalauréat, Mathematics &amp; General track</span></li>
+      </ul>
+    </section>
+    <section>
+      <h2>Certifications</h2>
+      <ul class="edu" style="list-style:none; padding-left:0;">
+        <li><b>Cisco</b> <span class="muted">— Ethical Hacker, Junior Cybersecurity Analyst, Network Defense</span></li>
+        <li><b>Google Security Operations</b> <span class="muted">— Deep Dive</span></li>
+        <li><span class="muted">TryHackMe SOC Level 1 (in progress)</span></li>
+        <li><span class="muted">Google Cybersecurity Professional (in progress)</span></li>
+      </ul>
+    </section>
+  </div>
+
+  <section>
+    <h2>Languages</h2>
+    <p class="muted">Kabyle (native) · French (bilingual) · English (advanced) · Arabic (advanced) &nbsp;—&nbsp; Driving licence: Cat. B</p>
+  </section>
+</body>
+</html>

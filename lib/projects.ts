@@ -9,6 +9,9 @@ export type Project = {
   url: string;
   homepage?: string;
   stack: string[];
+  stars: number;
+  language?: string;
+  pushedAt?: string;
 };
 
 export type RepoNode = {
@@ -18,6 +21,9 @@ export type RepoNode = {
   homepageUrl: string | null;
   isArchived: boolean;
   repositoryTopics: { nodes: { topic: { name: string } }[] };
+  stargazerCount?: number;
+  primaryLanguage?: { name: string } | null;
+  pushedAt?: string | null;
 };
 
 export type UserRepos = {
@@ -32,6 +38,9 @@ const QUERY = `
     url
     homepageUrl
     isArchived
+    stargazerCount
+    primaryLanguage { name }
+    pushedAt
     repositoryTopics(first: 10) { nodes { topic { name } } }
   }
   query($login: String!) {
@@ -75,6 +84,9 @@ function toProject(repo: RepoNode): Project {
     url: repo.url,
     homepage: projectHomepage(repo.name, repo.homepageUrl),
     stack: repo.repositoryTopics.nodes.map((n) => n.topic.name),
+    stars: repo.stargazerCount ?? 0,
+    language: repo.primaryLanguage?.name,
+    pushedAt: repo.pushedAt ?? undefined,
   };
 }
 
@@ -144,6 +156,9 @@ async function fetchPublicProjects() {
     archived: boolean;
     fork: boolean;
     topics: string[];
+    stargazers_count: number;
+    language: string | null;
+    pushed_at: string;
   }>;
   const projects = repos
     .filter((repo) => !repo.archived && !repo.fork)
@@ -153,6 +168,9 @@ async function fetchPublicProjects() {
       url: repo.html_url,
       homepage: projectHomepage(repo.name, repo.homepage),
       stack: repo.topics,
+      stars: repo.stargazers_count ?? 0,
+      language: repo.language ?? undefined,
+      pushedAt: repo.pushed_at,
     }));
 
   return {

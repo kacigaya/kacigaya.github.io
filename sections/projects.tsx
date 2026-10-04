@@ -1,4 +1,4 @@
-import { ArrowUpRight, ChevronDown } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Star } from "lucide-react";
 import { Badge } from "@/components/badge";
 import { Button } from "@/components/button";
 import {
@@ -15,6 +15,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/collapsible";
 import { loadProjects } from "@/lib/projects";
+import { formatMonth } from "@/lib/utils";
 
 export async function Projects() {
   const { pinned, more } = await loadProjects();
@@ -54,6 +55,24 @@ export async function Projects() {
                 </CardAction>
               </CardHeader>
               <CardFooter className="mt-auto flex-col items-start gap-3 p-4">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground tabular-nums">
+                  {p.language && (
+                    <span translate="no">{p.language}</span>
+                  )}
+                  {p.stars > 0 && (
+                    <span className="flex items-center gap-1">
+                      <Star aria-hidden="true" className="size-3.5" />
+                      {p.stars}
+                      <span className="sr-only">
+                        {" "}
+                        star{p.stars === 1 ? "" : "s"}
+                      </span>
+                    </span>
+                  )}
+                  {p.pushedAt && formatMonth(p.pushedAt) && (
+                    <span>updated {formatMonth(p.pushedAt)}</span>
+                  )}
+                </div>
                 <div className="flex flex-wrap gap-1">
                   {p.stack.map((s) => (
                     <Badge key={s} variant="secondary">
