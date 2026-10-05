@@ -75,7 +75,7 @@ content/posts/  # Markdown blog posts with frontmatter
 public/         # Logo, Open Graph image, CV, and self-hosted font files
 assets/         # Fonts bundled into the per-post Open Graph images (not published)
 scripts/        # Post-build helper that gives the Open Graph images a .png extension
-cv/             # Source HTML the CV PDF is rendered from
+cv/             # CV source (Markdown), stylesheet, and Inter font files
 ```
 
 ## Quality checks
@@ -107,6 +107,8 @@ To check the export locally, run `bun run build`, then `node
 scripts/postbuild-og.mjs`, and serve `out/` with any static file server that
 maps `/path` to `path.html` and unknown paths to `404.html`.
 
-To regenerate the CV PDF after editing `cv/cv.html`, print it to
-`public/CV_Gaya_KACI.pdf` with a headless Chromium
-(`chrome --headless --no-pdf-header-footer --print-to-pdf`).
+The CV lives in `cv/cv.md`. After editing it, run `bun run cv` to render
+`public/CV_Gaya_KACI.pdf`. The script uses Bun's built-in Markdown renderer,
+styles the page with `cv/cv.css`, and prints it with headless Chromium. Set
+`CHROME` to the Chromium binary when it is not on `PATH` as `chromium` or
+`google-chrome`.
