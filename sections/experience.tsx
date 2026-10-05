@@ -14,9 +14,9 @@ const roles: Role[] = [
   {
     title: "Web Cybersecurity Engineer",
     org: "Société Générale Assurance",
-    period: "Sep 2025 — present",
+    period: "Sep 2025 – present",
     points: [
-      "Reverse engineer anti-bot systems and browser fingerprinting, then engineer browser identity (user agents, technical fingerprints) to keep automated processes stable.",
+      "Reverse engineer anti-bot systems and browser fingerprinting, then tune browser identity (user agents, technical fingerprints) to keep automated processes stable.",
       "Build Python automation for complex web workflows: API integration, session management, and resilient scripts with timeout, retry, and data quality control.",
       "Built a PowerShell tool (TUI + GUI) that classifies SonarQube SBOM files and generates vulnerability and CVE reports; triage with Qualys.",
       "Automate cloud VM provisioning in PowerShell and diagnose environments via Bash across Azure and AWS.",
@@ -25,7 +25,7 @@ const roles: Role[] = [
   {
     title: "Network & Systems Administrator",
     org: "Dolce Hotel Versailles by Wyndham",
-    period: "Jul 2024 — Sep 2025",
+    period: "Jul 2024 – Sep 2025",
     points: [
       "Administered the network: VLANs, access points, and Cisco Meraki switches.",
       "Deployed an Acronis backup server and vCenter virtualization; managed Active Directory, Microsoft 365, and Linux/Windows servers.",

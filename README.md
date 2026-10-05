@@ -109,4 +109,5 @@ maps `/path` to `path.html` and unknown paths to `404.html`.
 
 To regenerate the CV PDF after editing `cv/cv.html`, print it to
 `public/CV_Gaya_KACI.pdf` with a headless Chromium
-(`chrome --headless --no-pdf-header-footer --print-to-pdf`).
+(`chrome --headless --allow-file-access-from-files --no-pdf-header-footer
+--print-to-pdf`). The flag lets it load the Inter files in `cv/fonts/`.
