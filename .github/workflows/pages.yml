@@ -49,6 +49,9 @@ jobs:
       - uses: actions/upload-pages-artifact@v5
         with:
           path: out
+          # the action skips dotfiles by default, which drops .well-known/
+          # (security.txt) and .nojekyll from the deploy
+          include-hidden-files: true
 
   deploy:
     needs: build
