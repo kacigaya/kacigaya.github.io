@@ -50,7 +50,7 @@ const chrome = process.env.CHROME ?? Bun.which("chromium") ?? Bun.which("google-
 if (!chrome) throw new Error("Chromium not found: set CHROME to its binary");
 
 try {
-  await $`${chrome} --headless --no-sandbox --disable-gpu --allow-file-access-from-files --no-pdf-header-footer --print-to-pdf=${out} file://${page}`.quiet();
+  await $`${chrome} --headless --no-sandbox --disable-gpu --font-render-hinting=none --allow-file-access-from-files --no-pdf-header-footer --print-to-pdf=${out} file://${page}`.quiet();
 } finally {
   unlinkSync(page);
 }

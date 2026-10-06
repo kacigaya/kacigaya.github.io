@@ -17,7 +17,8 @@
 body {
   margin: 0;
   font-family: "Inter", sans-serif;
-  font-feature-settings: "cv11", "ss03";
+  /* glyph positions must not be rounded, or small text spaces unevenly */
+  text-rendering: geometricPrecision;
   font-size: 10.2px;
   line-height: 1.5;
   color: var(--body);
