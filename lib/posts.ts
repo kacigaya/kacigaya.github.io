@@ -34,7 +34,7 @@ export type PostMeta = {
   featured?: boolean;
 };
 
-export type Post = PostMeta & { content: string };
+type Post = PostMeta & { content: string };
 
 function metadata(
   slug: string,
@@ -156,33 +156,32 @@ export function getAdjacentPosts(slug: string): {
   };
 }
 
+function readPost(slug: string): { meta: PostMeta; content: string } {
+  const raw = fs.readFileSync(path.join(POSTS_DIR, `${slug}.md`), "utf8");
+  const { data, content } = parseFrontmatter(raw);
+  return { meta: metadata(slug, data, content), content };
+}
+
 export function getAllPosts(): PostMeta[] {
   if (!fs.existsSync(POSTS_DIR)) return [];
   return fs
     .readdirSync(POSTS_DIR)
     .filter((f) => f.endsWith(".md"))
-    .map((f) => {
-      const slug = f.replace(/\.md$/, "");
-      const raw = fs.readFileSync(path.join(POSTS_DIR, f), "utf8");
-      const { data, content } = parseFrontmatter(raw);
-      return metadata(slug, data, content);
-    })
+    .map((f) => readPost(f.replace(/\.md$/, "")).meta)
     .sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
 // The homepage leads with research rather than the newest post, so it shows
-// the posts flagged `featured` (newest first). With none flagged it falls back
-// to the latest few, so the section is never empty.
-export function getFeaturedPosts(limit = 4): PostMeta[] {
-  const posts = getAllPosts();
+// the posts flagged `featured` (newest first, as getAllPosts returns them).
+// With none flagged it falls back to the latest few, so the section is never
+// empty.
+export function featuredPosts(posts: PostMeta[], limit = 4): PostMeta[] {
   const featured = posts.filter((p) => p.featured);
   return (featured.length > 0 ? featured : posts).slice(0, limit);
 }
 
 export function getPost(slug: string): Post | null {
-  const file = path.join(POSTS_DIR, `${slug}.md`);
-  if (!fs.existsSync(file)) return null;
-  const raw = fs.readFileSync(file, "utf8");
-  const { data, content } = parseFrontmatter(raw);
-  return { ...metadata(slug, data, content), content };
+  if (!fs.existsSync(path.join(POSTS_DIR, `${slug}.md`))) return null;
+  const { meta, content } = readPost(slug);
+  return { ...meta, content };
 }

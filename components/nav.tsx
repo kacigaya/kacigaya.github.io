@@ -98,6 +98,36 @@ function useActiveSection(): string {
   return active;
 }
 
+// The desktop bar and the mobile panel list the same links; the panel stretches
+// them full width and closes itself when one is followed.
+function NavItems({
+  active,
+  className,
+  onNavigate,
+}: {
+  active: string;
+  className?: string;
+  onNavigate?: () => void;
+}) {
+  return links.map((l) => (
+    <li key={l.href}>
+      <Button
+        variant="ghost"
+        size="sm"
+        aria-current={active === l.id ? "location" : undefined}
+        className={cn(
+          "text-muted-foreground hover:text-foreground",
+          className,
+          active === l.id && "text-foreground bg-accent",
+        )}
+        render={<a href={l.href} onClick={onNavigate} />}
+      >
+        <span className="bracketed">{l.label}</span>
+      </Button>
+    </li>
+  ));
+}
+
 export function Nav() {
   const [open, setOpen] = useState(false);
   const active = useActiveSection();
@@ -143,22 +173,7 @@ export function Nav() {
           <div className="flex items-center gap-1">
             <nav aria-label="primary" className="hidden lg:block">
               <ul className="flex items-center gap-0.5">
-                {links.map((l) => (
-                  <li key={l.href}>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      aria-current={active === l.id ? "location" : undefined}
-                      className={cn(
-                        "text-muted-foreground hover:text-foreground",
-                        active === l.id && "text-foreground bg-accent",
-                      )}
-                      render={<a href={l.href} />}
-                    >
-                      <span className="bracketed">{l.label}</span>
-                    </Button>
-                  </li>
-                ))}
+                <NavItems active={active} />
               </ul>
             </nav>
             <CollapsibleTrigger
@@ -180,22 +195,11 @@ export function Nav() {
         <CollapsiblePanel className="lg:hidden">
           <nav aria-label="primary mobile" className="px-3 pb-3">
             <ul className="flex flex-col gap-0.5 border-t pt-2">
-              {links.map((l) => (
-                <li key={l.href}>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    aria-current={active === l.id ? "location" : undefined}
-                    className={cn(
-                      "w-full justify-start text-muted-foreground hover:text-foreground",
-                      active === l.id && "text-foreground bg-accent",
-                    )}
-                    render={<a href={l.href} onClick={() => setOpen(false)} />}
-                  >
-                    <span className="bracketed">{l.label}</span>
-                  </Button>
-                </li>
-              ))}
+              <NavItems
+                active={active}
+                className="w-full justify-start"
+                onNavigate={() => setOpen(false)}
+              />
             </ul>
           </nav>
         </CollapsiblePanel>

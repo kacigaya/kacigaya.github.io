@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { GET } from "@/app/feed.xml/route";
 import {
+  featuredPosts,
   getAdjacentPosts,
   getAllPosts,
   getHeadings,
@@ -106,5 +107,20 @@ describe("posts", () => {
       expect(xml).toContain(`/blog/${encodeURIComponent(post.slug)}`);
       expect(xml).toContain(`<title>${post.title.replaceAll("&", "&amp;")}</title>`);
     }
+  });
+  test("features flagged posts, falling back to the newest", () => {
+    const post = (slug: string, featured?: boolean) => ({
+      slug,
+      title: slug,
+      date: "2025-01-01",
+      description: "",
+      minutes: 1,
+      featured,
+    });
+    const posts = [post("a"), post("b", true), post("c"), post("d", true)];
+    expect(featuredPosts(posts).map((p) => p.slug)).toEqual(["b", "d"]);
+    expect(featuredPosts(posts, 1).map((p) => p.slug)).toEqual(["b"]);
+    const plain = [post("a"), post("b"), post("c")];
+    expect(featuredPosts(plain, 2).map((p) => p.slug)).toEqual(["a", "b"]);
   });
 });

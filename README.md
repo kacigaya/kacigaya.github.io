@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://nextjs.org"><img alt="Next.js 16.3.3" src="https://shieldcn.dev/badge/Next.js-16.3.3-171717.svg?variant=secondary&amp;logo=nextdotjs"></a>
+  <a href="https://nextjs.org"><img alt="Next.js 16.3.8" src="https://shieldcn.dev/badge/Next.js-16.3.8-171717.svg?variant=secondary&amp;logo=nextdotjs"></a>
   <a href="https://bun.sh"><img alt="Bun 1.3.14" src="https://shieldcn.dev/badge/Bun-1.3.14-fbf0df.svg?variant=secondary&amp;logo=bun&amp;logoColor=171717"></a>
   <a href="https://tailwindcss.com"><img alt="Tailwind CSS 4.3.3" src="https://shieldcn.dev/badge/Tailwind_CSS-4.3.3-06b6d4.svg?variant=secondary&amp;logo=tailwindcss"></a>
   <a href="https://www.typescriptlang.org"><img alt="TypeScript 5.9.3" src="https://shieldcn.dev/badge/TypeScript-5.9.3-3178c6.svg?variant=secondary&amp;logo=typescript"></a>
@@ -72,9 +72,9 @@ components/     # Reusable UI components (Nav, Caret, Deferred, icons)
 sections/       # Page sections (Hero, About, Experience, Projects, Skills, Certifications, Contact)
 lib/            # Data loading (GitHub projects and contributions, markdown posts) and site constants
 content/posts/  # Markdown blog posts with frontmatter
-public/         # Logo, Open Graph image, CV, and self-hosted font files
-assets/         # Fonts bundled into the per-post Open Graph images (not published)
-scripts/        # Post-build helper that gives the Open Graph images a .png extension
+public/         # Logo, Open Graph image, and CV
+assets/         # Site font (bundled by next/font) and the TTFs for the per-post Open Graph images
+scripts/        # CV renderer and the post-build helper that gives the Open Graph images a .png extension
 cv/             # CV source (Markdown), stylesheet, and Inter font files
 ```
 
@@ -105,7 +105,7 @@ Pages sends no custom response headers, so the content security policy is a
 
 To check the export locally, run `bun run build`, then `node
 scripts/postbuild-og.mjs`, and serve `out/` with any static file server that
-maps `/path` to `path.html` and unknown paths to `404.html`.
+maps `/path/` to `path/index.html` and unknown paths to `404.html`.
 
 The CV lives in `cv/cv.md`. After editing it, run `bun run cv` to render
 `public/CV_Gaya_KACI.pdf`. The script uses Bun's built-in Markdown renderer,

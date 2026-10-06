@@ -146,3 +146,38 @@ test("public project fallback also replaces the retired portfolio URL", async ()
 
   expect((await loadProjects()).pinned[0].homepage).toBe(SITE_URL);
 });
+
+test("public fallback drops archived repos and forks, then splits 6 / 18", async () => {
+  delete process.env.GITHUB_TOKEN;
+  const rest = (name: string, extra: object = {}) => ({
+    name,
+    description: null,
+    html_url: `https://github.com/kacigaya/${name}`,
+    homepage: null,
+    archived: false,
+    fork: false,
+    topics: [],
+    ...extra,
+  });
+  stubFetch(() =>
+    Promise.resolve(
+      Response.json([
+        rest("archived", { archived: true }),
+        rest("forked", { fork: true }),
+        ...Array.from({ length: 30 }, (_, i) => rest(`r${i}`)),
+      ]),
+    ),
+  );
+  const { pinned, more } = await loadProjects();
+  expect(pinned.map((p) => p.name)).toEqual(["r0", "r1", "r2", "r3", "r4", "r5"]);
+  expect(more).toHaveLength(18);
+  expect(more[0].name).toBe("r6");
+});
+
+test("public fallback empties the section on an HTTP error or bad JSON", async () => {
+  delete process.env.GITHUB_TOKEN;
+  stubFetch(() => Promise.resolve(new Response("nope", { status: 403 })));
+  expect(await loadProjects()).toEqual({ pinned: [], more: [] });
+  stubFetch(() => Promise.resolve(new Response("not json")));
+  expect(await loadProjects()).toEqual({ pinned: [], more: [] });
+});

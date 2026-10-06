@@ -189,7 +189,7 @@ async function BlogPostContent({
             </ul>
           </nav>
         )}
-        <article className="prose-blog mt-8">
+        <article className="prose prose-blog mt-8">
           <ReactMarkdown
             components={createMarkdownComponents(headings)}
             remarkPlugins={[remarkGfm]}

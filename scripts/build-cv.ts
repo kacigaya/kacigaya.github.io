@@ -42,12 +42,12 @@ ${ordered.join("\n")}
 </body>
 </html>`;
 
+const chrome = process.env.CHROME ?? Bun.which("chromium") ?? Bun.which("google-chrome");
+if (!chrome) throw new Error("Chromium not found: set CHROME to its binary");
+
 // Written next to cv.css so the stylesheet and fonts resolve relatively.
 const page = join(dir, ".cv.html");
 await Bun.write(page, html);
-
-const chrome = process.env.CHROME ?? Bun.which("chromium") ?? Bun.which("google-chrome");
-if (!chrome) throw new Error("Chromium not found: set CHROME to its binary");
 
 try {
   await $`${chrome} --headless --no-sandbox --disable-gpu --font-render-hinting=none --allow-file-access-from-files --no-pdf-header-footer --print-to-pdf=${out} file://${page}`.quiet();

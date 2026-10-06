@@ -7,7 +7,7 @@ export type ContributionDay = {
   level: number;
 };
 
-export type Calendar = {
+type Calendar = {
   weeks: (ContributionDay | null)[][];
   months: (string | null)[];
 };

@@ -4,7 +4,7 @@ import { slugify, type Heading } from "@/lib/posts";
 
 // Heading text as it ends up on screen: `## Read the [RFC](url)` renders as
 // "Read the RFC", which is what the id has to be built from.
-export function textOf(children: ReactNode): string {
+function textOf(children: ReactNode): string {
   return Children.toArray(children)
     .map((child) => {
       if (typeof child === "string" || typeof child === "number") {

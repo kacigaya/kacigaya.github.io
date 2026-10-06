@@ -1,0 +1,26 @@
+/* Running-text styles shared by the policy pages and blog posts. Each route
+   imports this itself, so pages without long-form text never load it. */
+
+/* long inline code (file paths, symbol names) has no space to break at and
+   would widen the whole document on narrow screens, which drags the fixed nav
+   sideways. Break inside those runs only when they cannot fit. */
+.prose { line-height: 1.7; overflow-wrap: break-word; }
+.prose h2,
+.prose h3 { scroll-margin-top: 6rem; }
+.prose p { margin-top: 1rem; text-wrap: pretty; }
+.prose a { color: var(--foreground); text-decoration: underline; text-underline-offset: 3px; }
+.prose a:hover { background: var(--foreground); color: var(--background); }
+.prose strong { color: var(--foreground); font-weight: 700; }
+.prose ul { margin: 1rem 0; padding-left: 1.25rem; list-style: none; }
+.prose ul > li { position: relative; padding-left: 1.25rem; margin: 0.35rem 0; }
+.prose ul > li::before {
+  content: "-"; position: absolute; left: 0; color: var(--muted-foreground);
+}
+.prose code:not(pre code) {
+  font-family: var(--font-mono);
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.05rem 0.35rem;
+  font-size: 0.9em;
+}

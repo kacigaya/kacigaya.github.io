@@ -1,8 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { useEffect } from "react";
-import { Button } from "@/components/button";
+import { ErrorContent } from "@/components/error-content";
 
 export default function Error({
   error,
@@ -11,34 +9,5 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  useEffect(() => {
-    console.error(error);
-  }, [error]);
-
-  return (
-    <main id="main" className="mx-auto max-w-3xl px-6 pt-32 pb-32 md:px-8">
-      <h1 className="md-h1 text-2xl md:text-3xl uppercase">
-        500: something broke
-      </h1>
-      {/* scoped to the message: on <main> the whole page, buttons included,
-          becomes an assertive live region. */}
-      <p className="mt-6 max-w-2xl text-muted-foreground" role="alert">
-        This page failed to render. Retry it, or head back home.
-        {error.digest && (
-          <>
-            {" "}
-            <span className="tabular-nums">digest {error.digest}</span>
-          </>
-        )}
-      </p>
-      <div className="mt-8 flex flex-wrap gap-2">
-        <Button size="lg" onClick={reset}>
-          retry
-        </Button>
-        <Button size="lg" variant="outline" render={<Link href="/" />}>
-          <span className="bracketed">back home</span>
-        </Button>
-      </div>
-    </main>
-  );
+  return <ErrorContent error={error} onRetry={reset} />;
 }

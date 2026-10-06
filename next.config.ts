@@ -21,9 +21,6 @@ const nextConfig: NextConfig = {
   basePath,
   // inlined for lib/site.ts, which client components also import
   env: { NEXT_PUBLIC_SITE_URL: siteUrl, NEXT_PUBLIC_BASE_PATH: basePath },
-  // Don't advertise the framework. The static host sets no other headers; the
-  // content security policy lives in a meta tag in app/layout.tsx.
-  poweredByHeader: false,
 };
 
 export default nextConfig;

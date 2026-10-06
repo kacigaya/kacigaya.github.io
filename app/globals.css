@@ -55,7 +55,6 @@
      otherwise holds open for a double-tap zoom is pure latency. */
   a,
   button,
-  summary,
   [role="button"] {
     touch-action: manipulation;
   }
@@ -73,7 +72,6 @@
   content-visibility: auto;
   contain-intrinsic-size: auto 700px;
 }
-details summary::marker { color: var(--muted-foreground); }
 
 @keyframes blink { 50% { opacity: 0; } }
 .caret {

@@ -1,12 +1,9 @@
-/* Long-form post styles. Only /blog/[slug] renders `.prose-blog`, so they load
-   with that route instead of blocking the first paint of every page. */
+@import "../../prose.css";
 
-/* long inline code (file paths, symbol names) has no space to break at and
-   would widen the whole document on narrow screens, which drags the fixed nav
-   sideways. Break inside those runs only when they cannot fit. */
-.prose-blog { line-height: 1.7; overflow-wrap: break-word; }
-.prose-blog h2,
-.prose-blog h3 { scroll-margin-top: 6rem; }
+/* Post-only additions to app/prose.css. Only /blog/[slug] renders
+   `.prose-blog`, so they load with that route instead of blocking the first
+   paint of every page. */
+
 .prose-blog h2 {
   font-size: 1.25rem;
   font-weight: 700;
@@ -28,26 +25,9 @@
 .prose-blog h3::before { content: "### "; }
 .prose-blog a::before { content: "["; }
 .prose-blog a::after { content: "]"; }
-.prose-blog p { margin-top: 1rem; margin-bottom: 1rem; text-wrap: pretty; }
-.prose-blog a { color: var(--foreground); text-decoration: underline; text-underline-offset: 3px; }
-.prose-blog a:hover { background: var(--foreground); color: var(--background); }
-.prose-blog strong { color: var(--foreground); font-weight: 700; }
-.prose-blog ul, .prose-blog ol { margin: 1rem 0; padding-left: 1.25rem; }
-.prose-blog ul { list-style: none; }
-.prose-blog ul > li { position: relative; padding-left: 1.25rem; margin: 0.35rem 0; }
-.prose-blog ul > li::before {
-  content: "-"; position: absolute; left: 0; color: var(--muted-foreground);
-}
-.prose-blog ol { list-style: decimal; }
+.prose-blog p { margin-bottom: 1rem; }
+.prose-blog ol { margin: 1rem 0; padding-left: 1.25rem; list-style: decimal; }
 .prose-blog ol > li { margin: 0.35rem 0; padding-left: 0.25rem; }
-.prose-blog code:not(pre code) {
-  font-family: var(--font-mono);
-  background: var(--muted);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 0.05rem 0.35rem;
-  font-size: 0.9em;
-}
 /* catppuccin mocha, mapped onto highlight.js token classes */
 .prose-blog pre {
   --ctp-text: #cdd6f4;

@@ -3,7 +3,7 @@ import { SITE_URL } from "@/lib/site";
 
 const MORE_PROJECTS_LIMIT = 18;
 
-export type Project = {
+type Project = {
   name: string;
   desc: string;
   url: string;
@@ -26,7 +26,7 @@ export type RepoNode = {
   pushedAt?: string | null;
 };
 
-export type UserRepos = {
+type UserRepos = {
   pinnedItems: { nodes: RepoNode[] };
   repositories: { nodes: RepoNode[] };
 };
@@ -131,12 +131,8 @@ export async function loadProjects() {
   }
 }
 
-async function getPublicProjects() {
-  try {
-    return await fetchPublicProjects();
-  } catch {
-    return { pinned: [], more: [] };
-  }
+function getPublicProjects() {
+  return fetchPublicProjects().catch(() => ({ pinned: [], more: [] }));
 }
 
 async function fetchPublicProjects() {

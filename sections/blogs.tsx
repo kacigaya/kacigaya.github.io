@@ -10,19 +10,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/card";
-import { getAllPosts, getFeaturedPosts } from "@/lib/posts";
+import { featuredPosts, getAllPosts } from "@/lib/posts";
 import { formatDate } from "@/lib/utils";
 import { FEED_PATH } from "@/lib/site";
 
 export function Blogs() {
-  const posts = getFeaturedPosts();
-  const total = getAllPosts().length;
+  const all = getAllPosts();
+  const posts = featuredPosts(all);
 
   return (
     <section id="blogs" className="mt-12 border-t pt-12">
       <h2 className="md-h2 text-base uppercase">writing</h2>
       <p className="mt-2 text-xs text-muted-foreground tabular-nums">
-        selected write-ups · {total} in total
+        selected write-ups · {all.length} in total
       </p>
       <ul className="mt-6 grid grid-cols-1 gap-3">
         {posts.map((p) => (

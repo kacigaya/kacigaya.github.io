@@ -1,6 +1,6 @@
 // Checked in rather than fetched: credentials span multiple providers.
 // Order is newest first.
-export type Certification = {
+type Certification = {
   name: string;
   issuer: string;
   // Public credential or provider profile link, when available.
