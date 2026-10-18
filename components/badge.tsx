@@ -2,19 +2,17 @@ import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentPropsWithoutRef } from "react";
 import { cn } from "@/lib/utils";
 
-const badgeVariants = cva(
-  "relative inline-flex h-5.5 min-w-5.5 shrink-0 items-center justify-center gap-1 whitespace-nowrap rounded-sm border border-transparent px-[calc(--spacing(1)-1px)] font-medium text-sm outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-64 sm:h-4.5 sm:min-w-4.5 sm:text-xs [&_svg:not([class*='opacity-'])]:opacity-80 [&_svg:not([class*='size-'])]:size-3.5 sm:[&_svg:not([class*='size-'])]:size-3 [&_svg]:pointer-events-none [&_svg]:shrink-0 [button&,a&]:cursor-pointer [button&,a&]:pointer-coarse:after:absolute [button&,a&]:pointer-coarse:after:size-full [button&,a&]:pointer-coarse:after:min-h-11 [button&,a&]:pointer-coarse:after:min-w-11",
-  {
-    defaultVariants: { variant: "default" },
-    variants: {
-      variant: {
-        default: "bg-primary text-primary-foreground [button&,a&]:hover:bg-primary/90",
-        outline: "border-input bg-background text-foreground dark:bg-input/32 [button&,a&]:hover:bg-accent/50 dark:[button&,a&]:hover:bg-input/48",
-        secondary: "bg-secondary text-secondary-foreground [button&,a&]:hover:bg-secondary/90",
-      },
+// Badges are static text labels. Base styles are the .badge class in
+// globals.css, which keeps the per-badge class attribute short.
+const badgeVariants = cva("badge", {
+  defaultVariants: { variant: "secondary" },
+  variants: {
+    variant: {
+      outline: "border-input bg-background text-foreground dark:bg-input/32",
+      secondary: "bg-secondary text-secondary-foreground",
     },
   },
-);
+});
 
 export interface BadgeProps extends ComponentPropsWithoutRef<"span"> {
   variant?: VariantProps<typeof badgeVariants>["variant"];

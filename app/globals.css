@@ -84,6 +84,13 @@
   animation: blink 1s steps(2) infinite;
 }
 
+/* one class per cell rather than a utility list: the calendar renders ~370
+   cells, and each class attribute ships twice (HTML and RSC payload) */
+.contrib-cell {
+  aspect-ratio: 1;
+  border-radius: 2px;
+}
+
 /* the contribution scale keeps GitHub's green, separate from --brand so the
    selection and caret stay neutral. Steps are mixes of one hue. */
 .level-0 { background: var(--muted); }
@@ -91,6 +98,15 @@
 .level-2 { background: color-mix(in srgb, var(--contrib) 50%, transparent); }
 .level-3 { background: color-mix(in srgb, var(--contrib) 75%, transparent); }
 .level-4 { background: var(--contrib); }
+
+/* badge base styles live here rather than in each class attribute: the home
+   page renders ~100 badges, and a long utility list repeated on each one
+   bloated the HTML and the RSC payload. Variants stay utilities in badge.tsx. */
+@layer components {
+  .badge {
+    @apply relative inline-flex h-5.5 min-w-5.5 shrink-0 items-center justify-center gap-1 whitespace-nowrap rounded-sm border border-transparent px-[calc(--spacing(1)-1px)] font-medium text-sm sm:h-4.5 sm:min-w-4.5 sm:text-xs;
+  }
+}
 
 /* markdown-source motif: literal heading markers, as if reading the .md file */
 .md-h1,

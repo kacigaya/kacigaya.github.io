@@ -59,10 +59,10 @@ export async function Contributions() {
                           : undefined
                       }
                       className={cn(
-                        "aspect-square rounded-[2px]",
+                        "contrib-cell",
                         // level comes straight from a third-party API: an
                         // out-of-range value would render an invisible cell.
-                        day ? (LEVEL[day.level] ?? LEVEL[0]) : "bg-transparent",
+                        day && (LEVEL[day.level] ?? LEVEL[0]),
                       )}
                     />
                   );
