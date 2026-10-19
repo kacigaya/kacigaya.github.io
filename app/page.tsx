@@ -1,4 +1,5 @@
 import { Footer } from "@/components/footer";
+import { JsonLd } from "@/components/json-ld";
 import { Nav } from "@/components/nav";
 import { Deferred } from "@/components/deferred";
 import { Separator } from "@/components/separator";
@@ -12,6 +13,7 @@ import { Blogs } from "@/sections/blogs";
 import { Skills } from "@/sections/skills";
 import { Certifications } from "@/sections/certifications";
 import { Contact } from "@/sections/contact";
+import { AUTHOR, PERSON_ID, SITE_URL, WEBSITE_ID } from "@/lib/site";
 
 export default function Page() {
   return (
@@ -19,6 +21,18 @@ export default function Page() {
       <SkipLink />
       <Nav />
       <main id="main" className="mx-auto max-w-3xl px-6 md:px-8 pt-24 pb-32">
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "@id": WEBSITE_ID,
+            name: AUTHOR.name,
+            url: `${SITE_URL}/`,
+            inLanguage: "en",
+            author: { "@id": PERSON_ID },
+            publisher: { "@id": PERSON_ID },
+          }}
+        />
         <Hero />
         <Deferred>
           <About />

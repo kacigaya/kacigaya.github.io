@@ -86,21 +86,22 @@
 .prose-blog .hljs-strong { font-weight: 700; }
 
 /* catppuccin latte, so light mode gets a light code surface instead of the
-   dark block mocha requires */
+   dark block mocha requires. Accents below the stock palette are darkened
+   until each reaches 4.5:1 on the #eff1f5 surface (WCAG AA body text). */
 html:not(.dark) .prose-blog pre {
   --ctp-text: #4c4f69;
-  --ctp-subtext0: #6c6f85;
+  --ctp-subtext0: #6a6d82;
   --ctp-overlay2: #686b80;
-  --ctp-flamingo: #dd7878;
-  --ctp-pink: #ea76cb;
+  --ctp-flamingo: #cb3333;
+  --ctp-pink: #c71f9a;
   --ctp-mauve: #8839ef;
   --ctp-red: #d20f39;
-  --ctp-peach: #fe640b;
-  --ctp-yellow: #df8e1d;
-  --ctp-green: #40a02b;
-  --ctp-teal: #179299;
-  --ctp-sky: #04a5e5;
-  --ctp-sapphire: #209fb5;
+  --ctp-peach: #be4601;
+  --ctp-yellow: #996114;
+  --ctp-green: #327c21;
+  --ctp-teal: #13797e;
+  --ctp-sky: #0374a1;
+  --ctp-sapphire: #187787;
   --ctp-blue: #1a5edb;
   background: #eff1f5;
 }

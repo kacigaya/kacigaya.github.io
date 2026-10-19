@@ -13,13 +13,22 @@ import { Footer } from "@/components/footer";
 import { Nav } from "@/components/nav";
 import { SkipLink } from "@/components/skip-link";
 import { getAllPosts } from "@/lib/posts";
-import { FEED_PATH } from "@/lib/site";
+import { FEED_PATH, OG_DEFAULTS } from "@/lib/site";
 import { formatDate } from "@/lib/utils";
+
+const description =
+  "Notes on browser security, automation, reverse engineering, and web development.";
 
 export const metadata: Metadata = {
   title: "Writing",
-  description: "Notes on browser security, automation, reverse engineering, and web development.",
+  description,
   alternates: { canonical: "/blog" },
+  openGraph: {
+    ...OG_DEFAULTS,
+    title: "Writing | Gaya KACI",
+    description,
+    url: "/blog",
+  },
 };
 
 export default function BlogIndex() {

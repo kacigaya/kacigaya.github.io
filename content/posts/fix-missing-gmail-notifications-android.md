@@ -1,7 +1,7 @@
 ---
 title: "Fix missing Gmail notifications on Android"
 date: "2026-09-10"
-description: "A practical checklist for restoring Gmail alerts on Android, including notification channels, sound settings, Gmail sync, and an ADB fix for inconsistent permissions."
+description: "A checklist to restore Gmail alerts on Android: notification channels, sound settings, Gmail sync, and an ADB fix for inconsistent permissions."
 tags: ["android", "gmail", "notifications", "adb", "troubleshooting"]
 ---
 

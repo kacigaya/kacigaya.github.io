@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { jetbrains } from "./fonts";
 import { THEME_INIT_SCRIPT } from "@/components/theme-provider";
-import { SITE_URL } from "@/lib/site";
+import { JsonLd } from "@/components/json-ld";
+import { AUTHOR, OG_DEFAULTS, PERSON_ID, SITE_URL } from "@/lib/site";
 import { socials } from "@/lib/socials";
 import "./globals.css";
 
@@ -33,24 +34,15 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   alternates: { canonical: "/", types: { "application/rss+xml": "/feed.xml" } },
   openGraph: {
+    ...OG_DEFAULTS,
     title: "Gaya KACI",
     description:
       "Cybersecurity student and web security researcher building developer tools, browser automation, and security software.",
-    type: "website",
     url: "/",
-    // a file in public/ rather than the app/opengraph-image convention: under
-    // a basePath the convention prefixes the path twice
-    images: [
-      {
-        url: "/opengraph-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Gaya KACI, cybersecurity student and web security researcher",
-      },
-    ],
   },
+  // No robots field: index, follow is the default, and a root value would
+  // ship beside the noindex Next adds to the 404 page.
   twitter: { card: "summary_large_image" },
-  robots: { index: true, follow: true },
 };
 
 export const viewport: Viewport = {
@@ -79,12 +71,13 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
       <body className="min-h-dvh">
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        <JsonLd data={{
           "@context": "https://schema.org",
           "@type": "Person",
-          name: "Gaya KACI",
-          url: SITE_URL,
-          jobTitle: "Cybersecurity student and web security researcher",
+          "@id": PERSON_ID,
+          name: AUTHOR.name,
+          url: `${SITE_URL}/`,
+          jobTitle: AUTHOR.jobTitle,
           worksFor: { "@type": "Organization", name: "Société Générale Assurance" },
           alumniOf: {
             "@type": "CollegeOrUniversity",
@@ -99,7 +92,7 @@ export default function RootLayout({
             "penetration testing",
           ],
           sameAs: [socials.github, socials.linkedin, socials.x, socials.googleDeveloper],
-        }).replace(/</g, "\\u003c") }} />
+        }} />
         {children}
       </body>
     </html>

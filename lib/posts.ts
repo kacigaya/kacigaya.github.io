@@ -27,6 +27,9 @@ export type PostMeta = {
   slug: string;
   title: string;
   date: string;
+  // optional YYYY-MM-DD of the last substantive revision; drives dateModified
+  // and the sitemap lastmod
+  updated?: string;
   description: string;
   minutes: number;
   tags?: string[];
@@ -36,7 +39,7 @@ export type PostMeta = {
 
 type Post = PostMeta & { content: string };
 
-function metadata(
+export function parsePostMeta(
   slug: string,
   data: Record<string, unknown>,
   content: string,
@@ -45,9 +48,9 @@ function metadata(
     throw new Error(`${slug}: title, date, and description must be strings`);
   }
   if (!/^[a-z0-9-]+$/.test(slug)) throw new Error(`${slug}: invalid slug`);
-  const date = utcDate(data.date);
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(data.date) || Number.isNaN(date.valueOf()) || date.toISOString().slice(0, 10) !== data.date) {
-    throw new Error(`${slug}: date must be YYYY-MM-DD`);
+  if (!isIsoDate(data.date)) throw new Error(`${slug}: date must be YYYY-MM-DD`);
+  if (data.updated !== undefined && (typeof data.updated !== "string" || !isIsoDate(data.updated) || data.updated < data.date)) {
+    throw new Error(`${slug}: updated must be YYYY-MM-DD, not before date`);
   }
   if (data.tags !== undefined && (!Array.isArray(data.tags) || !data.tags.every((tag) => typeof tag === "string"))) {
     throw new Error(`${slug}: tags must be strings`);
@@ -62,12 +65,18 @@ function metadata(
     slug,
     title: data.title,
     date: data.date,
+    updated: data.updated as string | undefined,
     description: data.description,
     minutes: readingTime(content),
     tags: data.tags as string[] | undefined,
     repo: data.repo as string | undefined,
     featured: data.featured as boolean | undefined,
   };
+}
+
+function isIsoDate(value: string): boolean {
+  const date = utcDate(value);
+  return /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(date.valueOf()) && date.toISOString().slice(0, 10) === value;
 }
 
 export function readingTime(content: string): number {
@@ -159,7 +168,7 @@ export function getAdjacentPosts(slug: string): {
 function readPost(slug: string): { meta: PostMeta; content: string } {
   const raw = fs.readFileSync(path.join(POSTS_DIR, `${slug}.md`), "utf8");
   const { data, content } = parseFrontmatter(raw);
-  return { meta: metadata(slug, data, content), content };
+  return { meta: parsePostMeta(slug, data, content), content };
 }
 
 export function getAllPosts(): PostMeta[] {

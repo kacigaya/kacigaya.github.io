@@ -1,15 +1,24 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/button";
+import { OG_DEFAULTS } from "@/lib/site";
 import { socials } from "@/lib/socials";
 import { formatDate } from "@/lib/utils";
 import { LEGAL_UPDATED } from "../updated";
 
+const description =
+  "What this site collects, what it does not, and how to reach me about it. No analytics, no trackers, no cookies.";
+
 export const metadata: Metadata = {
   title: "Privacy policy",
-  description:
-    "What this site collects, what it does not, and how to reach me about it. No analytics, no trackers, no cookies.",
+  description,
   alternates: { canonical: "/privacy" },
+  openGraph: {
+    ...OG_DEFAULTS,
+    title: "Privacy policy | Gaya KACI",
+    description,
+    url: "/privacy",
+  },
 };
 
 export default function PrivacyPolicy() {

@@ -9,6 +9,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/badge";
 import { Button } from "@/components/button";
 import { Footer } from "@/components/footer";
+import { JsonLd } from "@/components/json-ld";
 import { createMarkdownComponents } from "@/components/markdown";
 import { Nav } from "@/components/nav";
 import { Separator } from "@/components/separator";
@@ -21,7 +22,7 @@ import {
   type PostMeta,
 } from "@/lib/posts";
 import { formatDate } from "@/lib/utils";
-import { SITE_URL } from "@/lib/site";
+import { AUTHOR, PERSON_ID, SITE_URL, WEBSITE_ID } from "@/lib/site";
 import "./prose.css";
 
 const getCachedPost = cache(getPost);
@@ -79,6 +80,7 @@ export async function generateMetadata({
       // match the renamed file.
       images: [`/blog/${slug}/opengraph-image.png`],
       publishedTime: post.date,
+      modifiedTime: post.updated ?? post.date,
       tags: post.tags,
     },
   };
@@ -118,27 +120,38 @@ async function BlogPostContent({
   const headings = getHeadings(post.content);
   const { older, newer } = getAdjacentPosts(slug);
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: post.title,
-    description: post.description,
-    datePublished: post.date,
-    url: `${SITE_URL}/blog/${slug}/`,
-    mainEntityOfPage: `${SITE_URL}/blog/${slug}/`,
-    image: `${SITE_URL}/blog/${slug}/opengraph-image.png`,
-    keywords: post.tags,
-    author: { "@type": "Person", name: "Gaya KACI", url: SITE_URL },
-  };
+  const url = `${SITE_URL}/blog/${slug}/`;
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: post.title,
+      description: post.description,
+      datePublished: post.date,
+      dateModified: post.updated ?? post.date,
+      url,
+      mainEntityOfPage: url,
+      image: `${SITE_URL}/blog/${slug}/opengraph-image.png`,
+      keywords: post.tags,
+      inLanguage: "en",
+      isPartOf: { "@id": WEBSITE_ID },
+      author: { "@type": "Person", "@id": PERSON_ID, name: AUTHOR.name, url: `${SITE_URL}/` },
+      publisher: { "@id": PERSON_ID },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: "Writing", item: `${SITE_URL}/blog/` },
+        { "@type": "ListItem", position: 3, name: post.title, item: url },
+      ],
+    },
+  ];
 
   return (
     <main id="main" className="mx-auto max-w-3xl px-6 md:px-8 pt-24 pb-32">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-          }}
-        />
+        <JsonLd data={jsonLd} />
         <p className="text-sm text-muted-foreground">/blog/{post.slug}.md</p>
         <header className="mt-6 border-b pb-6">
           <h1 className="md-h1 text-2xl md:text-3xl leading-tight text-balance">
@@ -146,8 +159,14 @@ async function BlogPostContent({
           </h1>
           <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
             <span className="tabular-nums">
-              <time dateTime={post.date}>{formatDate(post.date)}</time> ·{" "}
-              {post.minutes} min read
+              <time dateTime={post.date}>{formatDate(post.date)}</time>
+              {post.updated && (
+                <>
+                  {" "}· updated{" "}
+                  <time dateTime={post.updated}>{formatDate(post.updated)}</time>
+                </>
+              )}{" "}
+              · {post.minutes} min read
             </span>
             {post.tags && post.tags.length > 0 && (
               <span className="flex flex-wrap gap-1">
@@ -198,7 +217,22 @@ async function BlogPostContent({
             {post.content}
           </ReactMarkdown>
         </article>
-        <Separator className="mt-16" />
+        <aside aria-label="about the author" className="mt-12 rounded-lg border p-4 text-sm">
+          <p className="text-xs text-muted-foreground uppercase">written by</p>
+          <p className="mt-2">
+            <Link
+              href="/"
+              rel="author"
+              className="underline decoration-border underline-offset-4 hover:text-muted-foreground"
+            >
+              {AUTHOR.name}
+            </Link>
+            <span className="text-muted-foreground">
+              {" "}· {AUTHOR.jobTitle.toLowerCase()} in Paris.
+            </span>
+          </p>
+        </aside>
+        <Separator className="mt-12" />
         {(older || newer) && (
           <nav
             aria-label="more posts"

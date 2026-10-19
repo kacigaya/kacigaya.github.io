@@ -1,5 +1,5 @@
 ---
-title: "Fix Vivaldi sidebars staying open after switching windows"
+title: "Fix Vivaldi auto-hide sidebars staying open"
 date: "2026-09-15"
 description: "An experimental local patch for stuck auto-hide sidebars in macOS Vivaldi 8.2.4133.52, with bundle checks, a backup, and restoration."
 tags: ["macos", "vivaldi", "javascript", "troubleshooting"]

@@ -1,15 +1,24 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/button";
+import { OG_DEFAULTS } from "@/lib/site";
 import { socials } from "@/lib/socials";
 import { formatDate } from "@/lib/utils";
 import { LEGAL_UPDATED } from "../updated";
 
+const description =
+  "This site sets no cookies. It stores one theme preference in your browser, and nothing else.";
+
 export const metadata: Metadata = {
   title: "Cookies policy",
-  description:
-    "This site sets no cookies. It stores one theme preference in your browser, and nothing else.",
+  description,
   alternates: { canonical: "/cookies" },
+  openGraph: {
+    ...OG_DEFAULTS,
+    title: "Cookies policy | Gaya KACI",
+    description,
+    url: "/cookies",
+  },
 };
 
 export default function CookiesPolicy() {

@@ -8,8 +8,8 @@ const links = [
   { href: socials.x, label: "x", external: true },
   { href: socials.googleDeveloper, label: "g.dev", external: true },
   { href: FEED_PATH, label: "rss", external: false },
-  { href: `${BASE_PATH}/privacy`, label: "privacy", external: false },
-  { href: `${BASE_PATH}/cookies`, label: "cookies", external: false },
+  { href: `${BASE_PATH}/privacy/`, label: "privacy", external: false },
+  { href: `${BASE_PATH}/cookies/`, label: "cookies", external: false },
 ];
 
 export function Footer({ className }: { className?: string }) {
@@ -32,7 +32,8 @@ export function Footer({ className }: { className?: string }) {
             <a
               href={href}
               {...(external && { target: "_blank", rel: "noreferrer" })}
-              className="underline decoration-border underline-offset-4 hover:text-foreground"
+              // 24px tall: the WCAG 2.2 minimum target for small inline links
+              className="inline-flex min-h-6 items-center underline decoration-border underline-offset-4 hover:text-foreground"
             >
               <span className="bracketed">{label}</span>
               {external && <span className="sr-only"> (opens in new tab)</span>}

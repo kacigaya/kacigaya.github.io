@@ -1,5 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { GET } from "@/app/feed.xml/route";
+import { GET as getLlmsTxt } from "@/app/llms.txt/route";
+import sitemap from "@/app/sitemap";
 import {
   featuredPosts,
   getAdjacentPosts,
@@ -7,9 +9,11 @@ import {
   getHeadings,
   getPost,
   parseFrontmatter,
+  parsePostMeta,
   readingTime,
   slugify,
 } from "@/lib/posts";
+import { SITE_URL } from "@/lib/site";
 
 describe("posts", () => {
   test("loads valid posts once with stable metadata", () => {
@@ -20,6 +24,9 @@ describe("posts", () => {
     for (const post of posts) {
       expect(new Date(`${post.date}T00:00:00Z`).toISOString().slice(0, 10)).toBe(post.date);
       expect(post.minutes).toBeGreaterThan(0);
+      // search results cut descriptions near 160 characters
+      expect(post.description.length).toBeLessThanOrEqual(160);
+      if (post.updated) expect(post.updated >= post.date).toBe(true);
       expect(getPost(post.slug)?.minutes).toBe(post.minutes);
     }
   });
@@ -108,6 +115,33 @@ describe("posts", () => {
       expect(xml).toContain(`<title>${post.title.replaceAll("&", "&amp;")}</title>`);
     }
   });
+  test("accepts an update date only on or after publication", () => {
+    const base = { title: "T", date: "2026-05-07", description: "D" };
+
+    expect(parsePostMeta("a", base, "body").updated).toBeUndefined();
+    expect(parsePostMeta("a", { ...base, updated: "2026-05-07" }, "body").updated).toBe("2026-05-07");
+    expect(parsePostMeta("a", { ...base, updated: "2026-06-01" }, "body").updated).toBe("2026-06-01");
+    expect(() => parsePostMeta("a", { ...base, updated: "2026-05-06" }, "body")).toThrow("updated");
+    expect(() => parsePostMeta("a", { ...base, updated: "2026-02-30" }, "body")).toThrow("updated");
+    expect(() => parsePostMeta("a", { ...base, updated: 20260601 }, "body")).toThrow("updated");
+  });
+
+  test("lists every post in llms.txt", async () => {
+    const text = await getLlmsTxt().text();
+
+    expect(text).toStartWith("# ");
+    for (const post of getAllPosts()) {
+      expect(text).toContain(`(${SITE_URL}/blog/${post.slug}/)`);
+    }
+  });
+
+  test("gives every sitemap entry a trailing slash and a lastmod", () => {
+    for (const entry of sitemap()) {
+      expect(entry.url).toEndWith("/");
+      expect(entry.lastModified).toBeDefined();
+    }
+  });
+
   test("features flagged posts, falling back to the newest", () => {
     const post = (slug: string, featured?: boolean) => ({
       slug,
