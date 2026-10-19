@@ -125,7 +125,7 @@ test("stars, language, and push date carry through; missing ones default", () =>
 
 test("portfolio card uses the current site URL despite stale GitHub metadata", () => {
   const { pinned } = splitProjects({
-    pinnedItems: { nodes: [repo("portfolio", { homepageUrl: "https://gayakaci.com/" })] },
+    pinnedItems: { nodes: [repo("portfolio", { homepageUrl: "https://old.example/" })] },
     repositories: { nodes: [] },
   });
 
@@ -138,7 +138,7 @@ test("public project fallback also replaces the retired portfolio URL", async ()
     name: "portfolio",
     description: null,
     html_url: "https://github.com/kacigaya/portfolio",
-    homepage: "https://gayakaci.com/",
+    homepage: "https://old.example/",
     archived: false,
     fork: false,
     topics: [],
