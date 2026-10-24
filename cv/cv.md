@@ -30,11 +30,11 @@ Dolce Hotel Versailles by Wyndham, Jouy-en-Josas · Jul 2024 – Sep 2025
 
 - **[WebSkrap](https://github.com/kacigaya/webskrap):** async Python scraping framework built on Playwright, with persistent sessions, Patchright stealth, web search, a CLI, and an MCP server for agents.
 - **[NoSkrap](https://github.com/kacigaya/noskrap):** TypeScript bot risk scoring for Next.js, with request signals, interaction telemetry, and challenge passes.
-- **GhostPWN:** autonomous pentest agent in Rust with an interactive ratatui TUI and multi-provider LLM orchestration.
-- **teensy-reverse-shell:** BadUSB PoC on a Teensy 3.2 that chains HID injection into a fileless PowerShell reverse shell, for authorized red-team testing.
+- **[GhostPWN](https://github.com/GhostPWN/ghostpwn):** autonomous pentest agent in Rust with an interactive ratatui TUI and multi-provider LLM orchestration.
+- **[teensy-reverse-shell](https://github.com/kacigaya/teensy-reverse-shell):** BadUSB PoC on a Teensy 3.2 that chains HID injection into a fileless PowerShell reverse shell, for authorized red-team testing.
 - **Wazuh SOC:** personal Wazuh SIEM/EDR deployment for endpoint monitoring and log analysis.
-- **binje:** film and series discovery web app built with Next.js and the TMDB API.
-- **Open-source tools:** pdfcmprs (in-browser PDF compression), bangs (shortcut search), lightchat (multi-LLM chat), DNSSwitcher (macOS DNS profiles), spotblock, clean-tweetx.
+- **[binje](https://github.com/kacigaya/binje):** film and series discovery web app built with Next.js and the TMDB API.
+- **Open-source tools:** [pdfcmprs](https://github.com/kacigaya/pdfcmprs) (in-browser PDF compression), [bangs](https://github.com/kacigaya/bangs) (shortcut search), [lightchat](https://github.com/kacigaya/lightchat) (multi-LLM chat), [DNSSwitcher](https://github.com/kacigaya/dns-switcher) (macOS DNS profiles), [spotblock](https://github.com/kacigaya/spotblock), [clean-tweetx](https://github.com/kacigaya/clean-tweetx).
 
 ## Skills
 
