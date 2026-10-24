@@ -28,6 +28,8 @@ Dolce Hotel Versailles by Wyndham, Jouy-en-Josas · Jul 2024 – Sep 2025
 
 ## Projects
 
+- **[WebSkrap](https://github.com/kacigaya/webskrap):** async Python scraping framework built on Playwright, with persistent sessions, Patchright stealth, web search, a CLI, and an MCP server for agents.
+- **[NoSkrap](https://github.com/kacigaya/noskrap):** TypeScript bot risk scoring for Next.js, with request signals, interaction telemetry, and challenge passes.
 - **GhostPWN:** autonomous pentest agent in Rust with an interactive ratatui TUI and multi-provider LLM orchestration.
 - **teensy-reverse-shell:** BadUSB PoC on a Teensy 3.2 that chains HID injection into a fileless PowerShell reverse shell, for authorized red-team testing.
 - **Wazuh SOC:** personal Wazuh SIEM/EDR deployment for endpoint monitoring and log analysis.
