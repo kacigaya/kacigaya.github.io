@@ -20,13 +20,12 @@
 
 - Single-page scroll layout with anchor navigation and an active-section indicator
 - Terminal-inspired UI with prompt details and a blinking cursor
-- Experience timeline and a downloadable CV
+- Downloadable CV
 - Selected projects pulled live from GitHub, with language, stars, and last-push
   date, plus a browsable archive
 - Markdown blog with a featured set on the home page, RSS feed, sitemap, and
   per-post Open Graph images
 - Person and BlogPosting structured data, and an RFC 9116 `security.txt`
-- Skills grouped by field and frequency of use
 - Responsive, keyboard-accessible interface
 - Self-hosted JetBrains Nerd Font
 
@@ -69,7 +68,7 @@ Open [http://localhost:3000](http://localhost:3000) to view the app.
 ```
 app/            # Next.js App Router pages, layout, fonts, routes (feed, robots, sitemap, security.txt) and global styles
 components/     # Reusable UI components (Nav, Caret, Deferred, icons)
-sections/       # Page sections (Hero, About, Experience, Projects, Skills, Certifications, Contact)
+sections/       # Page sections (Hero, About, Projects, Contributions, Blogs, Contact)
 lib/            # Data loading (GitHub projects and contributions, markdown posts) and site constants
 content/posts/  # Markdown blog posts with frontmatter
 public/         # Logo, Open Graph image, and CV

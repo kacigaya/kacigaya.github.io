@@ -6,12 +6,9 @@ import { Separator } from "@/components/separator";
 import { SkipLink } from "@/components/skip-link";
 import { Hero } from "@/sections/hero";
 import { About } from "@/sections/about";
-import { Experience } from "@/sections/experience";
 import { Projects } from "@/sections/projects";
 import { Contributions } from "@/sections/contributions";
 import { Blogs } from "@/sections/blogs";
-import { Skills } from "@/sections/skills";
-import { Certifications } from "@/sections/certifications";
 import { Contact } from "@/sections/contact";
 import { AUTHOR, PERSON_ID, SITE_URL, WEBSITE_ID } from "@/lib/site";
 
@@ -38,9 +35,6 @@ export default function Page() {
           <About />
         </Deferred>
         <Deferred>
-          <Experience />
-        </Deferred>
-        <Deferred>
           <Projects />
         </Deferred>
         <Deferred>
@@ -48,12 +42,6 @@ export default function Page() {
         </Deferred>
         <Deferred>
           <Blogs />
-        </Deferred>
-        <Deferred>
-          <Skills />
-        </Deferred>
-        <Deferred>
-          <Certifications />
         </Deferred>
         <Deferred>
           <Contact />

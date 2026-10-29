@@ -18,12 +18,9 @@ import { cn } from "@/lib/utils";
 // plain anchors, so the base path is added by hand
 const links = [
   { id: "about", label: "about" },
-  { id: "experience", label: "work" },
   { id: "projects", label: "projects" },
   { id: "contributions", label: "contributions" },
   { id: "blogs", label: "writing" },
-  { id: "skills", label: "skills" },
-  { id: "certifications", label: "certs" },
   { id: "contact", label: "contact" },
 ].map((l) => ({ ...l, href: `${BASE_PATH}/#${l.id}` }));
 

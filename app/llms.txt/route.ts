@@ -15,7 +15,7 @@ export function GET() {
 
 ## Pages
 
-- [Home](${SITE_URL}/): about, experience, projects, skills, and contact
+- [Home](${SITE_URL}/): about, projects, contributions, writing, and contact
 - [Writing](${SITE_URL}/blog/): all posts, newest first
 - [RSS feed](${SITE_URL}/feed.xml)
 
