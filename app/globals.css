@@ -6,6 +6,11 @@
   --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-sans: var(--font-mono);
   --font-heading: var(--font-mono);
+  /* one curve pair for all motion: entrances decelerate, exits accelerate */
+  --ease-enter: cubic-bezier(0.2, 0, 0, 1);
+  --ease-exit: cubic-bezier(0.3, 0, 1, 1);
+  --default-transition-duration: 150ms;
+  --default-transition-timing-function: var(--ease-enter);
 }
 
 @layer base {

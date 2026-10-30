@@ -31,11 +31,11 @@ export function Hero() {
         research web security and build security tools.
       </p>
       <div className="mt-7 flex flex-wrap gap-2">
-        <Button size="lg" render={<a href="#projects" />}>
+        <Button size="lg" className="group" render={<a href="#projects" />}>
           view projects
           <ArrowRight
             aria-hidden="true"
-            className="transition-transform in-[[data-slot=button]:hover]:translate-x-0.5"
+            className="transition-transform group-hover:translate-x-0.5"
           />
         </Button>
         <Button size="lg" variant="outline" render={<a href="#contact" />}>

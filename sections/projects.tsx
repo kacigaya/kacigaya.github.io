@@ -109,7 +109,7 @@ export async function Projects() {
               show {more.length} more projects
               <ChevronDown
                 aria-hidden="true"
-                className="transition-transform in-[[data-panel-open]]:rotate-180"
+                className="transition-transform duration-150 ease-exit in-[[data-panel-open]]:rotate-180 in-[[data-panel-open]]:duration-250 in-[[data-panel-open]]:ease-enter"
               />
             </Button>
           }
